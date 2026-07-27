@@ -1,0 +1,5 @@
+# Staging area only — never commit unsorted drops
+_inbox/*
+!_inbox/.gitkeep
+
+.DS_Store

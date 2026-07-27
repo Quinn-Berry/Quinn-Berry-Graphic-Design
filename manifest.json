@@ -1,0 +1,245 @@
+{
+  "$comment": "SINGLE SOURCE OF TRUTH for the portfolio site. Every image that appears on the site MUST be listed here. Do not glob the images/ directory at build time - read this file instead. See CLAUDE.md for the full contract.",
+  "schemaVersion": 1,
+  "generated": "2026-07-27",
+  "imageRoot": "images",
+  "thumbRoot": "thumbs",
+  "thumbExt": ".webp",
+  "thumbWidth": 600,
+  "categories": [
+    {
+      "id": "print-editorial",
+      "order": 1,
+      "title": "Print & Editorial",
+      "slug": "print-editorial",
+      "dir": "01-print-editorial",
+      "filePrefix": "print-"
+    },
+    {
+      "id": "web-design",
+      "order": 2,
+      "title": "Web Design",
+      "slug": "web-design",
+      "dir": "02-web-design",
+      "filePrefix": "web-"
+    },
+    {
+      "id": "sports-graphics",
+      "order": 3,
+      "title": "Sports Graphics",
+      "slug": "sports-graphics",
+      "dir": "03-sports-graphics",
+      "filePrefix": "sports-"
+    },
+    {
+      "id": "logo",
+      "order": 4,
+      "title": "Logo",
+      "slug": "logo",
+      "dir": "04-logo",
+      "filePrefix": "logo-"
+    },
+    {
+      "id": "merchandise",
+      "order": 5,
+      "title": "Merchandise",
+      "slug": "merchandise",
+      "dir": "05-merchandise",
+      "filePrefix": "merch-"
+    }
+  ],
+  "projects": [
+    {
+      "id": "public-lands-pint-night",
+      "category": "print-editorial",
+      "title": "Public Lands Pint Night",
+      "order": 1,
+      "cover": "print-public-lands-pint-night-01.png",
+      "images": [
+        "print-public-lands-pint-night-01.png",
+        "print-public-lands-pint-night-02.png",
+        "print-public-lands-pint-night-03.png",
+        "print-public-lands-pint-night-04.png"
+      ]
+    },
+    {
+      "id": "lax-stache-madness",
+      "category": "print-editorial",
+      "title": "Lax Stache Madness",
+      "order": 2,
+      "cover": "print-lax-stache-madness-01.png",
+      "images": [
+        "print-lax-stache-madness-01.png",
+        "print-lax-stache-madness-02.png"
+      ]
+    },
+    {
+      "id": "cooseing",
+      "category": "web-design",
+      "title": "Cooseing",
+      "order": 1,
+      "url": "https://quinn-berry.github.io/Cooseing/",
+      "blurb": "Athlete brand site for HYROX PRO athlete and online coach Max Mancuso.",
+      "images": []
+    },
+    {
+      "id": "ada-anderson",
+      "category": "web-design",
+      "title": "Ada Anderson",
+      "order": 2,
+      "url": "https://adamay425.github.io/Ada-Anderson-/",
+      "blurb": "Personal site for a customer success and account management professional.",
+      "images": []
+    },
+    {
+      "id": "twigtree-site",
+      "category": "web-design",
+      "title": "Twigtree",
+      "order": 3,
+      "url": "https://twigtreevintage.com",
+      "blurb": "Storefront for a small, curated vintage streetwear shop.",
+      "images": []
+    },
+    {
+      "id": "ab-socials",
+      "category": "web-design",
+      "title": "AB Socials",
+      "order": 4,
+      "url": "https://quinn-berry.github.io/Ally-Barron/",
+      "blurb": "Social media strategy studio site for Ally Barron.",
+      "images": []
+    },
+    {
+      "id": "twigtree",
+      "category": "logo",
+      "title": "Twigtree",
+      "order": 1,
+      "cover": "logo-twigtree-01.png",
+      "images": [
+        "logo-twigtree-01.png"
+      ]
+    },
+    {
+      "id": "run-the-race",
+      "category": "logo",
+      "title": "Run the Race",
+      "order": 2,
+      "cover": "logo-run-the-race-01.png",
+      "images": [
+        "logo-run-the-race-01.png"
+      ]
+    },
+    {
+      "id": "max-mancuso-monogram",
+      "category": "logo",
+      "title": "Max Mancuso Monogram",
+      "order": 3,
+      "cover": "logo-max-mancuso-monogram-01.png",
+      "images": [
+        "logo-max-mancuso-monogram-01.png"
+      ]
+    },
+    {
+      "id": "gameday-matchup",
+      "category": "sports-graphics",
+      "title": "Gameday Matchup Graphic",
+      "order": 1,
+      "cover": "sports-gameday-matchup-01.png",
+      "images": [
+        "sports-gameday-matchup-01.png"
+      ]
+    },
+    {
+      "id": "gameday-feature",
+      "category": "sports-graphics",
+      "title": "Gameday Feature Graphic",
+      "order": 2,
+      "cover": "sports-gameday-feature-01.png",
+      "images": [
+        "sports-gameday-feature-01.png"
+      ]
+    },
+    {
+      "id": "player-stat-card",
+      "category": "sports-graphics",
+      "title": "Player Stat Card",
+      "order": 3,
+      "cover": "sports-player-stat-card-01.png",
+      "images": [
+        "sports-player-stat-card-01.png"
+      ]
+    },
+    {
+      "id": "player-feature",
+      "category": "sports-graphics",
+      "title": "Player Feature Graphic",
+      "order": 4,
+      "cover": "sports-player-feature-01.png",
+      "images": [
+        "sports-player-feature-01.png"
+      ]
+    },
+    {
+      "id": "season-schedule",
+      "category": "sports-graphics",
+      "title": "Season Schedule",
+      "order": 5,
+      "cover": "sports-season-schedule-01.png",
+      "images": [
+        "sports-season-schedule-01.png"
+      ]
+    },
+    {
+      "id": "all-fish-all-waters",
+      "category": "merchandise",
+      "title": "All Fish All Waters",
+      "order": 1,
+      "cover": "merch-all-fish-all-waters-01.png",
+      "images": [
+        "merch-all-fish-all-waters-01.png",
+        "merch-all-fish-all-waters-02.png",
+        "merch-all-fish-all-waters-03.png",
+        "merch-all-fish-all-waters-04.png"
+      ],
+      "darkBacked": [
+        "merch-all-fish-all-waters-01.png"
+      ]
+    },
+    {
+      "id": "okay-buddy",
+      "category": "merchandise",
+      "title": "Okay Buddy",
+      "order": 2,
+      "cover": "merch-okay-buddy-01.png",
+      "images": [
+        "merch-okay-buddy-01.png",
+        "merch-okay-buddy-02.png",
+        "merch-okay-buddy-03.png"
+      ],
+      "darkBacked": [
+        "merch-okay-buddy-01.png",
+        "merch-okay-buddy-02.png"
+      ]
+    },
+    {
+      "id": "bates-class-of-2025",
+      "category": "merchandise",
+      "title": "Bates Class of 2025",
+      "order": 3,
+      "cover": "merch-bates-class-of-2025-01.png",
+      "images": [
+        "merch-bates-class-of-2025-01.png"
+      ]
+    },
+    {
+      "id": "maine-harvest",
+      "category": "merchandise",
+      "title": "Maine Harvest",
+      "order": 4,
+      "cover": "merch-maine-harvest-01.png",
+      "images": [
+        "merch-maine-harvest-01.png"
+      ]
+    }
+  ]
+}
