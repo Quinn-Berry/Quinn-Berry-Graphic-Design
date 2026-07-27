@@ -277,12 +277,15 @@ p { margin: 0 0 1em; }
 
 .panel__images--single { grid-template-columns: minmax(0, 640px); }
 
-.panel__images--single .gallery__item img {
-  max-height: 70vh;
+/* keep tall portrait pieces from towering over the panel */
+.panel__images .gallery__item img {
+  max-height: 56vh;
   width: auto;
   max-width: 100%;
   margin: 0 auto;
 }
+
+.panel__images--single .gallery__item img { max-height: 70vh; }
 
 .tile { position: relative; }
 

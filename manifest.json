@@ -40,7 +40,7 @@
       "slug": "logo",
       "dir": "04-logo",
       "filePrefix": "logo-",
-      "cover": "logo-run-the-race-01.png"
+      "cover": "logo-twigtree-01.png"
     },
     {
       "id": "merchandise",
@@ -58,6 +58,7 @@
       "category": "print-editorial",
       "title": "Public Lands Pint Night",
       "order": 1,
+      "blurb": "Work for Backcountry Hunters & Anglers (BHA) — designed and launched social media and print graphics for BHA's collaboration with onX.",
       "cover": "print-public-lands-pint-night-01.png",
       "images": [
         "print-public-lands-pint-night-01.png",
@@ -118,6 +119,7 @@
       "category": "logo",
       "title": "Twigtree",
       "order": 1,
+      "blurb": "Vintage clothing company.",
       "cover": "logo-twigtree-01.png",
       "images": [
         "logo-twigtree-01.png"
@@ -128,7 +130,7 @@
       "category": "logo",
       "title": "Run the Race",
       "order": 2,
-      "blurb": "Mark for Run the Race, a podcast climbing fast up the Spotify and Apple Music charts.",
+      "blurb": "Podcast identity for Run the Race, rising fast on the Spotify and Apple Music charts.",
       "cover": "logo-run-the-race-01.png",
       "images": [
         "logo-run-the-race-01.png"
@@ -199,6 +201,7 @@
       "category": "merchandise",
       "title": "All Fish All Waters",
       "order": 1,
+      "blurb": "Work for Fly Fishers International — graphics for a clothing launch.",
       "cover": "merch-all-fish-all-waters-01.png",
       "images": [
         "merch-all-fish-all-waters-01.png",
@@ -212,6 +215,7 @@
       "category": "merchandise",
       "title": "Okay Buddy",
       "order": 2,
+      "blurb": "Streetwear brand.",
       "cover": "merch-okay-buddy-01.png",
       "images": [
         "merch-okay-buddy-01.png",
@@ -224,7 +228,7 @@
       "category": "merchandise",
       "title": "Bates Class of 2025",
       "order": 3,
-      "blurb": "Winning design in the Bates Class of 2025 t-shirt competition.",
+      "blurb": "Winning design in the Bates Class of 2025 t-shirt competition. 600 shirts made.",
       "cover": "merch-bates-class-of-2025-01.png",
       "images": [
         "merch-bates-class-of-2025-01.png"
@@ -235,7 +239,7 @@
       "category": "merchandise",
       "title": "Maine Harvest",
       "order": 4,
-      "blurb": "Winning entry in the 2021 Maine Harvest design competition.",
+      "blurb": "Winning entry in the 2021 Maine Harvest design competition. 400 shirts made.",
       "cover": "merch-maine-harvest-01.png",
       "images": [
         "merch-maine-harvest-01.png"
