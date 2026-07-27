@@ -14,7 +14,7 @@
       "slug": "print-editorial",
       "dir": "01-print-editorial",
       "filePrefix": "print-",
-      "cover": "print-public-lands-pint-night-01.png"
+      "cover": "print-public-lands-pint-night-02.png"
     },
     {
       "id": "web-design",
@@ -36,11 +36,12 @@
     {
       "id": "logo",
       "order": 4,
-      "title": "Logo",
+      "title": "Logos",
       "slug": "logo",
       "dir": "04-logo",
       "filePrefix": "logo-",
-      "cover": "logo-twigtree-01.png"
+      "cover": "logo-twigtree-01.png",
+      "coverFit": "flush"
     },
     {
       "id": "merchandise",
@@ -49,7 +50,7 @@
       "slug": "merchandise",
       "dir": "05-merchandise",
       "filePrefix": "merch-",
-      "cover": "merch-bates-class-of-2025-01.png"
+      "cover": "merch-okay-buddy-02.png"
     }
   ],
   "projects": [
@@ -59,9 +60,8 @@
       "title": "Public Lands Pint Night",
       "order": 1,
       "blurb": "Work for Backcountry Hunters & Anglers (BHA) — designed and launched social media and print graphics for BHA's collaboration with onX.",
-      "cover": "print-public-lands-pint-night-01.png",
+      "cover": "print-public-lands-pint-night-02.png",
       "images": [
-        "print-public-lands-pint-night-01.png",
         "print-public-lands-pint-night-02.png",
         "print-public-lands-pint-night-03.png",
         "print-public-lands-pint-night-04.png"
@@ -72,6 +72,7 @@
       "category": "print-editorial",
       "title": "Lax Stache Madness",
       "order": 2,
+      "blurb": "Social media and poster campaigns that fundraised over $70,000 for cancer patients — winning the nationwide HEADstrong fundraiser three consecutive years.",
       "cover": "print-lax-stache-madness-01.png",
       "images": [
         "print-lax-stache-madness-01.png",
@@ -206,7 +207,6 @@
       "images": [
         "merch-all-fish-all-waters-01.png",
         "merch-all-fish-all-waters-02.png",
-        "merch-all-fish-all-waters-03.png",
         "merch-all-fish-all-waters-04.png"
       ]
     },

@@ -2,7 +2,7 @@
    manifest.json is the single source of truth — see CLAUDE.md. */
 
 async function loadManifest() {
-  const res = await fetch('./manifest.json');
+  const res = await fetch('./manifest.json', { cache: 'no-cache' });
   if (!res.ok) throw new Error('Could not load manifest.json (' + res.status + ')');
   return res.json();
 }

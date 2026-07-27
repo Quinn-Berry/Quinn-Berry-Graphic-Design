@@ -310,6 +310,14 @@ p { margin: 0 0 1em; }
 
 .tile__media--dark { background: var(--dark-bg); border-color: var(--dark-bg); }
 
+/* flush covers fill the tile edge-to-edge instead of sitting in the inset */
+.tile__media--flush img {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
 .tile__media img {
   position: absolute;
   top: 8%;

@@ -46,6 +46,7 @@
       const coverFile = cat.cover || (projects[0] && projects[0].cover);
       const owner = projects.find((p) => p.images.includes(coverFile)) || projects[0];
       if (owner && coverFile) {
+        if (cat.coverFit === 'flush') media.classList.add('tile__media--flush');
         const img = document.createElement('img');
         img.src = thumbPath(manifest, owner, coverFile);
         img.alt = cat.title;
