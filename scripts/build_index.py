@@ -47,10 +47,11 @@ for cat in sorted(m["categories"], key=lambda c: c["order"]):
     for p in projects:
         lines.append(f"### {p['title']}  \n`id: {p['id']}`")
         lines.append("")
+        if p.get("blurb"):
+            lines.append(f"_{p['blurb']}_")
+            lines.append("")
         if p.get("url"):
             lines.append(f"- live site: <{p['url']}>")
-            if p.get("blurb"):
-                lines.append(f"  — {p['blurb']}")
         for fn in p["images"]:
             src = ROOT / image_root / cat["dir"] / fn
             thb = (ROOT / thumb_root / cat["dir"] / fn).with_suffix(thumb_ext)

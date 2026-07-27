@@ -1,8 +1,10 @@
-/* Home page: filterable work grid, rendered from manifest.json. */
+/* Home page: category tiles + expandable in-page panel, from manifest.json.
+   Clicking a category populates #category-panel below the tiles — no
+   navigation; everything after it is pushed down. */
 
 (async function () {
   const grid = document.getElementById('grid');
-  const filters = document.getElementById('filters');
+  const panel = document.getElementById('category-panel');
 
   let manifest;
   try {
@@ -15,97 +17,123 @@
   }
 
   const cats = [...manifest.categories].sort((a, b) => a.order - b.order);
-  const catTitle = {};
-  cats.forEach((c) => { catTitle[c.id] = c.title; });
+  const projectsOf = (catId) =>
+    orderedProjects(manifest).filter((p) => p.category === catId);
 
-  /* filter buttons */
-  const makeBtn = (id, label) => {
-    const li = document.createElement('li');
-    const btn = document.createElement('button');
-    btn.className = 'filter-btn';
-    btn.textContent = label;
-    btn.dataset.cat = id;
-    btn.setAttribute('aria-pressed', id === 'all' ? 'true' : 'false');
-    btn.addEventListener('click', () => {
-      filters.querySelectorAll('.filter-btn').forEach((b) =>
-        b.setAttribute('aria-pressed', b === btn ? 'true' : 'false'));
-      render(id);
-    });
-    li.appendChild(btn);
-    return li;
-  };
-  filters.appendChild(makeBtn('all', 'All'));
-  cats.forEach((c) => filters.appendChild(makeBtn(c.id, c.title)));
+  let openCat = null;
 
-  function imageTile(p) {
+  function catTile(cat) {
+    const projects = projectsOf(cat.id);
+    const isWeb = projects.length > 0 && projects.every((p) => p.url && p.images.length === 0);
+
     const art = document.createElement('article');
-    art.className = 'tile reveal';
-    const dark = isDarkBacked(p, p.cover);
+    art.className = 'cat-tile reveal';
 
-    const link = document.createElement('a');
-    link.className = 'tile__link';
-    link.href = 'project.html?id=' + encodeURIComponent(p.id);
-    link.setAttribute('aria-label', p.title + ' — ' + catTitle[p.category]);
+    const btn = document.createElement('button');
+    btn.className = 'cat-tile__btn';
+    btn.setAttribute('aria-expanded', 'false');
+    btn.setAttribute('aria-controls', 'category-panel');
+    btn.dataset.cat = cat.id;
 
     const media = document.createElement('div');
-    media.className = 'tile__media' + (dark ? ' tile__media--dark' : '');
-    const img = document.createElement('img');
-    img.src = thumbPath(manifest, p, p.cover);
-    img.alt = p.title;
-    img.loading = 'lazy';
-    img.width = manifest.thumbWidth;
-    media.appendChild(img);
-    link.appendChild(media);
-    art.appendChild(link);
+    media.className = 'tile__media cat-tile__media';
+    if (isWeb) {
+      media.appendChild(buildSiteFrame(manifest, projects[0], 'pan'));
+      media.classList.add('cat-tile__media--web');
+    } else {
+      /* category cover comes from the manifest; fall back to the first
+         project's cover so a category never renders an empty tile */
+      const coverFile = cat.cover || (projects[0] && projects[0].cover);
+      const owner = projects.find((p) => p.images.includes(coverFile)) || projects[0];
+      if (owner && coverFile) {
+        const img = document.createElement('img');
+        img.src = thumbPath(manifest, owner, coverFile);
+        img.alt = cat.title;
+        img.loading = 'lazy';
+        img.width = manifest.thumbWidth;
+        media.appendChild(img);
+      }
+    }
+    btn.appendChild(media);
 
     const meta = document.createElement('div');
-    meta.className = 'tile__meta';
-    meta.innerHTML = '<span class="tile__title">' + p.title + '</span>' +
-      '<span class="tile__cat">' + catTitle[p.category] + '</span>';
-    art.appendChild(meta);
+    meta.className = 'cat-tile__meta';
+    meta.innerHTML = '<span class="tile__title">' + cat.title + '</span>' +
+      '<span class="tile__cat">' + projects.length +
+      (isWeb ? ' live site' : ' project') + (projects.length === 1 ? '' : 's') + '</span>';
+    btn.appendChild(meta);
+
+    btn.addEventListener('click', () => toggle(cat, btn));
+    art.appendChild(btn);
     return art;
   }
 
-  function webTile(p) {
-    const art = document.createElement('article');
-    art.className = 'tile tile--web reveal';
-
-    const link = document.createElement('a');
-    link.className = 'tile__link';
-    link.href = 'project.html?id=' + encodeURIComponent(p.id);
-    link.setAttribute('aria-label', p.title + ' — ' + catTitle[p.category]);
-    link.appendChild(buildSiteFrame(manifest, p, 'pan'));
-    art.appendChild(link);
-
-    const meta = document.createElement('div');
-    meta.className = 'tile__meta';
-    const left = document.createElement('div');
-    left.innerHTML = '<span class="tile__title">' + p.title + '</span>' +
-      (p.blurb ? '<p class="tile__blurb">' + p.blurb + '</p>' : '');
-    const visit = document.createElement('a');
-    visit.className = 'visit-link';
-    visit.href = p.url;
-    visit.target = '_blank';
-    visit.rel = 'noopener';
-    visit.textContent = 'Visit live site ↗';
-    meta.appendChild(left);
-    meta.appendChild(visit);
-    art.appendChild(meta);
-    return art;
-  }
-
-  function render(catId) {
-    const projects = orderedProjects(manifest).filter(
-      (p) => catId === 'all' || p.category === catId
-    );
-    grid.replaceChildren();
-    grid.classList.toggle('grid--web-only', catId === 'web-design');
-    projects.forEach((p) => {
-      grid.appendChild(p.url && p.images.length === 0 ? webTile(p) : imageTile(p));
+  function closePanel() {
+    openCat = null;
+    panel.hidden = true;
+    panel.replaceChildren();
+    grid.querySelectorAll('.cat-tile__btn').forEach((b) => {
+      b.setAttribute('aria-expanded', 'false');
+      b.classList.remove('is-open');
     });
-    observeReveals(grid);
   }
 
-  render('all');
+  function toggle(cat, btn) {
+    if (openCat === cat.id) { closePanel(); return; }
+    closePanel();
+    openCat = cat.id;
+    btn.setAttribute('aria-expanded', 'true');
+    btn.classList.add('is-open');
+
+    const head = document.createElement('div');
+    head.className = 'panel__head';
+    head.innerHTML = '<h3>' + cat.title + '</h3>';
+    const close = document.createElement('button');
+    close.className = 'panel__close';
+    close.setAttribute('aria-label', 'Close ' + cat.title);
+    close.textContent = 'Close ×';
+    close.addEventListener('click', closePanel);
+    head.appendChild(close);
+    panel.appendChild(head);
+
+    projectsOf(cat.id).forEach((p) => {
+      const block = document.createElement('section');
+      block.className = 'panel__project';
+
+      const isWeb = p.url && p.images.length === 0;
+      block.innerHTML = '<h4>' + p.title + '</h4>' +
+        (p.blurb ? '<p class="tile__blurb">' + p.blurb + '</p>' : '') +
+        (p.url ? '<a class="visit-link" href="' + p.url +
+          '" target="_blank" rel="noopener">Visit live site ↗</a>' : '');
+
+      if (isWeb) {
+        block.appendChild(buildSiteFrame(manifest, p, 'live'));
+      } else {
+        const imgs = document.createElement('div');
+        imgs.className = 'panel__images' +
+          (p.images.length === 1 ? ' panel__images--single' : '');
+        p.images.forEach((fn, i) => {
+          const fig = document.createElement('figure');
+          fig.className = 'gallery__item' +
+            (isDarkBacked(p, fn) ? ' gallery__item--dark gallery__item--pad' : '');
+          const img = document.createElement('img');
+          img.src = imagePath(manifest, p, fn);
+          img.alt = altText(p, i, p.images.length);
+          img.loading = 'lazy';
+          fig.appendChild(img);
+          imgs.appendChild(fig);
+        });
+        block.appendChild(imgs);
+      }
+      panel.appendChild(block);
+    });
+
+    panel.hidden = false;
+    /* land the panel just under the sticky nav */
+    const y = panel.getBoundingClientRect().top + window.scrollY - 70;
+    window.scrollTo({ top: y, behavior: 'smooth' });
+  }
+
+  cats.forEach((c) => grid.appendChild(catTile(c)));
   observeReveals(document);
 })();

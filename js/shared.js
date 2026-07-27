@@ -59,7 +59,7 @@ function buildSiteFrame(manifest, project, mode) {
 
   const iframe = document.createElement('iframe');
   iframe.src = project.url;
-  iframe.loading = 'lazy';
+  if (mode !== 'live') iframe.loading = 'lazy';
   iframe.title = 'Live preview of ' + project.title;
   if (mode !== 'live') {
     iframe.setAttribute('aria-hidden', 'true');

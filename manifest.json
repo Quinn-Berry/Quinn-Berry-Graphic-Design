@@ -13,7 +13,8 @@
       "title": "Print & Editorial",
       "slug": "print-editorial",
       "dir": "01-print-editorial",
-      "filePrefix": "print-"
+      "filePrefix": "print-",
+      "cover": "print-public-lands-pint-night-01.png"
     },
     {
       "id": "web-design",
@@ -29,7 +30,8 @@
       "title": "Sports Graphics",
       "slug": "sports-graphics",
       "dir": "03-sports-graphics",
-      "filePrefix": "sports-"
+      "filePrefix": "sports-",
+      "cover": "sports-gameday-matchup-01.png"
     },
     {
       "id": "logo",
@@ -37,7 +39,8 @@
       "title": "Logo",
       "slug": "logo",
       "dir": "04-logo",
-      "filePrefix": "logo-"
+      "filePrefix": "logo-",
+      "cover": "logo-run-the-race-01.png"
     },
     {
       "id": "merchandise",
@@ -45,7 +48,8 @@
       "title": "Merchandise",
       "slug": "merchandise",
       "dir": "05-merchandise",
-      "filePrefix": "merch-"
+      "filePrefix": "merch-",
+      "cover": "merch-bates-class-of-2025-01.png"
     }
   ],
   "projects": [
@@ -124,6 +128,7 @@
       "category": "logo",
       "title": "Run the Race",
       "order": 2,
+      "blurb": "Mark for Run the Race, a podcast climbing fast up the Spotify and Apple Music charts.",
       "cover": "logo-run-the-race-01.png",
       "images": [
         "logo-run-the-race-01.png"
@@ -200,9 +205,6 @@
         "merch-all-fish-all-waters-02.png",
         "merch-all-fish-all-waters-03.png",
         "merch-all-fish-all-waters-04.png"
-      ],
-      "darkBacked": [
-        "merch-all-fish-all-waters-01.png"
       ]
     },
     {
@@ -215,10 +217,6 @@
         "merch-okay-buddy-01.png",
         "merch-okay-buddy-02.png",
         "merch-okay-buddy-03.png"
-      ],
-      "darkBacked": [
-        "merch-okay-buddy-01.png",
-        "merch-okay-buddy-02.png"
       ]
     },
     {
@@ -226,6 +224,7 @@
       "category": "merchandise",
       "title": "Bates Class of 2025",
       "order": 3,
+      "blurb": "Winning design in the Bates Class of 2025 t-shirt competition.",
       "cover": "merch-bates-class-of-2025-01.png",
       "images": [
         "merch-bates-class-of-2025-01.png"
@@ -236,6 +235,7 @@
       "category": "merchandise",
       "title": "Maine Harvest",
       "order": 4,
+      "blurb": "Winning entry in the 2021 Maine Harvest design competition.",
       "cover": "merch-maine-harvest-01.png",
       "images": [
         "merch-maine-harvest-01.png"
