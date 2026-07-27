@@ -120,6 +120,17 @@
           img.src = imagePath(manifest, p, fn);
           img.alt = altText(p, i, p.images.length);
           img.loading = 'lazy';
+          /* extreme aspect ratios get special treatment: very tall pieces
+             shrink, very wide lockups span the whole panel row */
+          const classify = () => {
+            if (img.naturalHeight > img.naturalWidth * 1.8) {
+              fig.classList.add('gallery__item--tallratio');
+            } else if (img.naturalWidth > img.naturalHeight * 2.2) {
+              fig.classList.add('gallery__item--wide');
+            }
+          };
+          if (img.complete && img.naturalWidth) classify();
+          else img.addEventListener('load', classify);
           fig.appendChild(img);
           imgs.appendChild(fig);
         });

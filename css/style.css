@@ -287,6 +287,13 @@ p { margin: 0 0 1em; }
 
 .panel__images--single .gallery__item img { max-height: 70vh; }
 
+/* extreme formats inside multi-image panels */
+.panel__images .gallery__item--tallratio img { max-height: 28vh; }
+
+.panel__images .gallery__item--wide { grid-column: 1 / -1; }
+
+.panel__images .gallery__item--wide img { width: 100%; max-height: 44vh; object-fit: contain; }
+
 .tile { position: relative; }
 
 .tile__media {
