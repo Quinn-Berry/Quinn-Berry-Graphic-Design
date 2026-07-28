@@ -112,12 +112,12 @@
       } else {
         const imgs = document.createElement('div');
         imgs.className = 'panel__images' +
-          (p.images.length === 1 ? ' panel__images--single' : '') +
-          (p.size === 'small' ? ' panel__images--small' : '');
+          (p.images.length === 1 ? ' panel__images--single' : '');
         p.images.forEach((fn, i) => {
           const fig = document.createElement('figure');
           fig.className = 'gallery__item' +
-            (isDarkBacked(p, fn) ? ' gallery__item--dark gallery__item--pad' : '');
+            (isDarkBacked(p, fn) ? ' gallery__item--dark gallery__item--pad' : '') +
+            (p.pad ? ' gallery__item--pad' : '');
           const img = document.createElement('img');
           img.src = imagePath(manifest, p, fn);
           img.alt = altText(p, i, p.images.length);

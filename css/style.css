@@ -287,10 +287,8 @@ p { margin: 0 0 1em; }
 
 .panel__images--single .gallery__item img { max-height: 70vh; }
 
-/* projects marked size: "small" in the manifest render compact */
-.panel__images--small { grid-template-columns: minmax(0, 360px); }
-
-.panel__images--small .gallery__item img { max-height: 38vh; }
+/* projects marked pad: true get a margin cushion inside the card */
+.panel__images .gallery__item--pad img { max-height: 52vh; }
 
 /* extreme formats inside multi-image panels */
 .panel__images .gallery__item--tallratio img { max-height: 28vh; }
