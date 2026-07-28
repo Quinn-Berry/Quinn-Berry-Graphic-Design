@@ -102,6 +102,7 @@ _Vintage clothing company._
 _Podcast identity for Run the Race, rising fast on the Spotify and Apple Music charts._
 
 - `logo-run-the-race-01.png`  — cover
+- `logo-run-the-race-02.png`
 
 ### Max Mancuso Monogram  
 `id: max-mancuso-monogram`
@@ -146,4 +147,4 @@ _Winning entry in the 2021 Maine Harvest design competition. 400 shirts made._
 
 ---
 
-**21** images across **18** projects.
+**22** images across **18** projects.

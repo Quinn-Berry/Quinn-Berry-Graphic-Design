@@ -203,6 +203,15 @@ p { margin: 0 0 1em; }
 
 .cat-tile__meta .tile__title { display: block; font-size: 22px; }
 
+.tile__caption {
+  display: block;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.5;
+  margin-top: 6px;
+  max-width: 52ch;
+}
+
 .cat-tile__media--web { overflow: hidden; }
 
 .cat-tile__media--web .site-frame {

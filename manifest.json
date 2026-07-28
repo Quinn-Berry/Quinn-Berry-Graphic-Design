@@ -14,7 +14,8 @@
       "slug": "print-editorial",
       "dir": "01-print-editorial",
       "filePrefix": "print-",
-      "cover": "print-public-lands-pint-night-02.png"
+      "cover": "print-public-lands-pint-night-02.png",
+      "caption": "Poster series and campaign graphics for causes, events, and fundraisers."
     },
     {
       "id": "web-design",
@@ -22,7 +23,8 @@
       "title": "Web Design",
       "slug": "web-design",
       "dir": "02-web-design",
-      "filePrefix": "web-"
+      "filePrefix": "web-",
+      "caption": "Live client websites designed and built end to end — browse them right here."
     },
     {
       "id": "sports-graphics",
@@ -31,7 +33,8 @@
       "slug": "sports-graphics",
       "dir": "03-sports-graphics",
       "filePrefix": "sports-",
-      "cover": "sports-gameday-matchup-01.png"
+      "cover": "sports-gameday-matchup-01.png",
+      "caption": "Gameday matchups, player features, and season schedules built for the feed."
     },
     {
       "id": "logo",
@@ -41,7 +44,8 @@
       "dir": "04-logo",
       "filePrefix": "logo-",
       "cover": "logo-twigtree-01.png",
-      "coverFit": "flush"
+      "coverFit": "flush",
+      "caption": "Identity marks and monograms drawn to hold up anywhere they land."
     },
     {
       "id": "merchandise",
@@ -50,7 +54,8 @@
       "slug": "merchandise",
       "dir": "05-merchandise",
       "filePrefix": "merch-",
-      "cover": "merch-okay-buddy-02.png"
+      "cover": "merch-okay-buddy-02.png",
+      "caption": "Apparel graphics and merch drops, including two winning competition designs."
     }
   ],
   "projects": [
@@ -135,7 +140,8 @@
       "blurb": "Podcast identity for Run the Race, rising fast on the Spotify and Apple Music charts.",
       "cover": "logo-run-the-race-01.png",
       "images": [
-        "logo-run-the-race-01.png"
+        "logo-run-the-race-01.png",
+        "logo-run-the-race-02.png"
       ]
     },
     {

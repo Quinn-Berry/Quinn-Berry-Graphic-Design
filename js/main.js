@@ -60,8 +60,10 @@
     const meta = document.createElement('div');
     meta.className = 'cat-tile__meta';
     meta.innerHTML = '<span class="tile__title">' + cat.title + '</span>' +
-      '<span class="tile__cat">' + projects.length +
-      (isWeb ? ' live site' : ' project') + (projects.length === 1 ? '' : 's') + '</span>';
+      (cat.caption
+        ? '<span class="tile__caption">' + cat.caption + '</span>'
+        : '<span class="tile__cat">' + projects.length +
+          (isWeb ? ' live site' : ' project') + (projects.length === 1 ? '' : 's') + '</span>');
     btn.appendChild(meta);
 
     btn.addEventListener('click', () => toggle(cat, btn));
