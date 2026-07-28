@@ -112,7 +112,8 @@
       } else {
         const imgs = document.createElement('div');
         imgs.className = 'panel__images' +
-          (p.images.length === 1 ? ' panel__images--single' : '');
+          (p.images.length === 1 ? ' panel__images--single' : '') +
+          (p.size === 'small' ? ' panel__images--small' : '');
         p.images.forEach((fn, i) => {
           const fig = document.createElement('figure');
           fig.className = 'gallery__item' +
