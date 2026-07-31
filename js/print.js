@@ -28,23 +28,34 @@
     return n;
   };
 
-  cats.forEach((cat) => {
+  const pad = (n) => String(n).padStart(2, '0');
+
+  cats.forEach((cat, ci) => {
     const projects = projectsOf(cat.id);
     if (!projects.length) return;
 
     const section = el('section', 'sheet');
-    section.appendChild(el('p', 'cat__eyebrow', cat.title));
-    section.appendChild(el('h2', 'cat__title', cat.title));
-    if (cat.caption) section.appendChild(el('p', 'cat__caption', cat.caption));
 
-    /* Projects sit two across. Ones carrying several examples, and live-site
-       screenshots, span the full measure instead so their images stay legible. */
+    /* Section opener: a banded heading rather than a fresh page, so a short
+       category does not leave most of a sheet empty. */
+    const open = el('header', 'cat');
+    open.appendChild(el('p', 'cat__eyebrow',
+      'Section ' + pad(ci + 1) + ' — ' + projects.length +
+      (projects.length === 1 ? ' project' : ' projects')));
+    open.appendChild(el('h2', 'cat__title', cat.title));
+    if (cat.caption) open.appendChild(el('p', 'cat__caption', cat.caption));
+    section.appendChild(open);
+
+    /* Projects sit two across. The opening piece of each section runs full
+       width as a feature, and so does any project carrying several examples. */
     const projs = el('div', 'projs');
     section.appendChild(projs);
 
-    projects.forEach((p) => {
-      const wide = p.images.length > 1;
-      const block = el('article', 'proj' + (wide ? ' proj--wide' : ''));
+    projects.forEach((p, pi) => {
+      const wide = p.images.length > 1 || pi === 0;
+      const block = el('article', 'proj' + (wide ? ' proj--wide' : '') +
+        (pi === 0 ? ' proj--feature' : ''));
+      block.appendChild(el('p', 'proj__num', pad(pi + 1)));
       block.appendChild(el('h3', 'proj__title', p.title));
       if (p.blurb) block.appendChild(el('p', 'proj__blurb', p.blurb));
 
@@ -68,7 +79,8 @@
       }
 
       const cat_ = categoryById(manifest, p.category);
-      const gallery = el('div', 'gal' + (p.images.length > 1 ? ' gal--multi' : ''));
+      const gallery = el('div', 'gal' + (p.images.length > 1 ? ' gal--multi' : '') +
+        ' gal--n' + p.images.length);
       p.images.forEach((fn, i) => {
         const fig = el('figure', 'gal__item');
         const img = document.createElement('img');

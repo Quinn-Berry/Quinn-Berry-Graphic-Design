@@ -34,11 +34,11 @@ body {
 
 img { max-width: 100%; display: block; }
 
-/* Each sheet starts a new page. The cover is the exception - it opens the
-   document. (Targeting .cover rather than :first-of-type matters: every
-   category section is the first of its type inside <main>.) */
-.sheet { break-before: page; page-break-before: always; }
-.cover { break-before: auto; page-break-before: auto; }
+/* Sections flow rather than each claiming a fresh page: a category with three
+   short pieces used to leave two thirds of a sheet blank. The banded opener
+   below does the separating instead. Cover and closing page stay on their own. */
+.cover { break-after: page; page-break-after: always; }
+.end { break-before: page; page-break-before: always; }
 
 /* ---------- cover ---------- */
 
@@ -51,11 +51,13 @@ img { max-width: 100%; display: block; }
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--muted);
-  margin: 0 0 8mm;
+  margin: 0 0 5mm;
   display: flex;
   align-items: center;
   gap: 4mm;
 }
+
+.cover__eyebrow { margin-bottom: 8mm; }
 
 .cover__eyebrow::before,
 .cat__eyebrow::before {
@@ -113,15 +115,55 @@ img { max-width: 100%; display: block; }
 
 .cover__tools { font-size: 9.5pt; color: var(--muted); }
 
-.cover__tools span { display: block; }
+/* The app tiles carry the Creative Suite line visually, the way they do in the
+   site hero; the names sit under them so the list still reads on paper. */
+.cover__apps {
+  display: flex;
+  gap: 4mm;
+  list-style: none;
+  margin: 4mm 0 6mm;
+  padding: 0;
+}
+
+.cover__apps li {
+  width: 17mm;
+  text-align: center;
+  font-family: var(--mono);
+  font-size: 6.5pt;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+
+.cover__apps img {
+  width: 17mm;
+  height: 17mm;
+  border-radius: 2.5mm;
+  object-fit: cover;
+  margin-bottom: 1.5mm;
+}
 
 .cover__flow {
+  display: block;
   margin-top: 3mm;
   color: var(--ink);
   font-weight: 600;
 }
 
 /* ---------- category ---------- */
+
+/* The band that opens a section, kept whole and never left hanging at the
+   foot of a page without work under it. */
+.cat {
+  margin: 4mm 0 7mm;
+  padding-top: 6mm;
+  border-top: 2.5pt solid var(--ink);
+  break-inside: avoid;
+  page-break-inside: avoid;
+  break-after: avoid;
+  page-break-after: avoid;
+}
+
+.sheet:first-of-type .cat { margin-top: 0; }
 
 .cat__title {
   font-family: var(--display);
@@ -136,9 +178,7 @@ img { max-width: 100%; display: block; }
   color: var(--muted);
   font-size: 10pt;
   max-width: 34em;
-  margin: 0 0 8mm;
-  padding-bottom: 5mm;
-  border-bottom: 1px solid var(--hairline);
+  margin: 0;
 }
 
 /* A category heading must never be stranded at the foot of a page without the
@@ -146,6 +186,7 @@ img { max-width: 100%; display: block; }
 .cat__eyebrow,
 .cat__title,
 .cat__caption,
+.proj__num,
 .proj__title,
 .proj__blurb,
 .proj__url {
@@ -168,12 +209,22 @@ img { max-width: 100%; display: block; }
   vertical-align: top;
   width: 50%;
   padding-right: 7mm;
-  margin-bottom: 9mm;
+  margin-bottom: 8mm;
   break-inside: avoid;
   page-break-inside: avoid;
 }
 
 .proj--wide { width: 100%; padding-right: 0; }
+
+/* A numeral sets the rhythm down the page and marks where one piece ends and
+   the next begins, which two-across work needs more than a stacked list does. */
+.proj__num {
+  font-family: var(--mono);
+  font-size: 8pt;
+  letter-spacing: 0.14em;
+  color: var(--accent);
+  margin: 0 0 1mm;
+}
 
 .proj__title {
   font-family: var(--display);
@@ -182,12 +233,16 @@ img { max-width: 100%; display: block; }
   margin: 0 0 2mm;
 }
 
+.proj--feature .proj__title { font-size: 19pt; }
+
 .proj__blurb {
   color: var(--muted);
   font-size: 10pt;
   max-width: 40em;
   margin: 0 0 4mm;
 }
+
+.proj--feature .proj__blurb { font-size: 10.5pt; max-width: 46em; }
 
 .proj__url {
   font-family: var(--mono);
@@ -211,23 +266,50 @@ img { max-width: 100%; display: block; }
 
 .proj--wide .gal { grid-template-columns: 1fr 1fr; }
 
+/* Every example sits in a square cell. Letting each image set its own height
+   left ragged rows and pockets of white wherever a wide piece rendered short;
+   uniform cells make rows line up and a page fill predictably. */
 .gal__item {
   margin: 0;
   border: 1px solid var(--hairline);
   border-radius: 2mm;
   overflow: hidden;
   width: 100%;
+  aspect-ratio: 1 / 1;
+  display: grid;
+  place-items: center;
+  padding: 4mm;
   break-inside: avoid;
   page-break-inside: avoid;
 }
 
-.gal__item img { width: 100%; height: auto; }
+.gal__item img { max-width: 100%; max-height: 100%; width: auto; height: auto; }
 
-/* Caps chosen so a project block stays near 110mm: two rows of projects plus
-   a category heading then fit on one page. */
-.gal__item img { max-height: 86mm; object-fit: contain; }
+/* A feature opens its section: the banded heading plus one large piece takes
+   the sheet on purpose, so that page reads as an opener rather than as a page
+   someone failed to fill. Square cells are dropped here — the piece sets its
+   own shape at 168mm, which is what the text block leaves under the opener. */
+.proj--feature .gal:not(.gal--multi) { grid-template-columns: 1fr; }
 
-.proj--wide .gal__item img { max-height: 92mm; }
+.proj--feature .gal:not(.gal--multi) .gal__item {
+  width: 100%;
+  aspect-ratio: auto;
+  padding: 5mm;
+}
+
+/* 140mm, not more: the opener band runs about 50mm and the title block about
+   25mm, so a taller feature no longer fits beneath its own heading and Chrome
+   pushes it to the next page, stranding the heading alone on the one before. */
+.proj--feature .gal:not(.gal--multi) .gal__item img { max-height: 140mm; }
+
+/* Galleries of several examples get shallower cells than the square default,
+   so two rows of them still sit under a section opener. */
+.gal--multi .gal__item { aspect-ratio: 4 / 3; }
+
+/* Three examples run three across rather than two-plus-a-gap, which both drops
+   the empty cell and lets the next project share the page. Features keep two
+   columns: they carry the section and should stay large. */
+.proj--wide:not(.proj--feature) .gal--n3 { grid-template-columns: repeat(3, 1fr); }
 
 /* ---------- live site screenshots ---------- */
 
@@ -240,7 +322,9 @@ img { max-width: 100%; display: block; }
   page-break-inside: avoid;
 }
 
-.shot img { width: 100%; max-height: 72mm; object-fit: cover; object-position: top; }
+.shot img { width: 100%; max-height: 80mm; object-fit: cover; object-position: top; }
+
+.proj--feature .shot img { max-height: 150mm; }
 
 .shot__missing { padding: 8mm; color: var(--muted); text-align: center; margin: 0; }
 

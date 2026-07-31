@@ -80,7 +80,7 @@ Rebuild it with one command:
 ./scripts/make_pdf.sh
 ```
 
-That writes `Quinn-Berry-Graphic-Design-Portfolio.pdf` (about 20 pages, 8 MB)
+That writes `Quinn-Berry-Graphic-Design-Portfolio.pdf` (about 12 pages, 8 MB)
 and runs three steps you can also run on their own:
 
 | Script | Does |
