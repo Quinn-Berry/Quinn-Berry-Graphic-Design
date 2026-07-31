@@ -155,11 +155,25 @@ img { max-width: 100%; display: block; }
 
 /* ---------- project ---------- */
 
+/* Two projects across. A project showing several examples, or a live-site
+   screenshot, takes the full measure so its images stay readable.
+   Inline-block rather than grid on purpose: Chrome fragments a grid container
+   across printed pages badly, splitting rows and ignoring break-inside on the
+   items. Inline-blocks in normal flow paginate predictably. */
+/* The gutter is padding, not margin: two 50% items plus any horizontal margin
+   would exceed the line and wrap to one per row. The renderer builds these
+   elements in JS, so there is no whitespace between them to add width either. */
 .proj {
-  margin-bottom: 10mm;
+  display: inline-block;
+  vertical-align: top;
+  width: 50%;
+  padding-right: 7mm;
+  margin-bottom: 9mm;
   break-inside: avoid;
   page-break-inside: avoid;
 }
+
+.proj--wide { width: 100%; padding-right: 0; }
 
 .proj__title {
   font-family: var(--display);
@@ -185,9 +199,17 @@ img { max-width: 100%; display: block; }
 
 /* ---------- galleries ---------- */
 
-.gal { display: grid; gap: 5mm; justify-items: center; }
+/* Inside a full-width project the examples run two across; inside a
+   half-width one there is a single column to fill. */
+.gal {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 5mm;
+  justify-items: center;
+  align-items: start;
+}
 
-.gal--multi { grid-template-columns: 1fr 1fr; align-items: start; }
+.proj--wide .gal { grid-template-columns: 1fr 1fr; }
 
 .gal__item {
   margin: 0;
@@ -201,14 +223,11 @@ img { max-width: 100%; display: block; }
 
 .gal__item img { width: 100%; height: auto; }
 
-/* Single-image projects run the full text measure so the piece is the page,
-   rather than floating in a column of white. Paired images stay compact so a
-   project still keeps to one page. */
-.gal:not(.gal--multi) .gal__item { max-width: 100%; }
-/* 165mm, not more: a category heading (~45mm) plus a full project has to fit
-   inside one 251mm text block, or the heading strands on the page before. */
-.gal:not(.gal--multi) .gal__item img { max-height: 165mm; object-fit: contain; }
-.gal--multi .gal__item img { max-height: 120mm; object-fit: contain; }
+/* Caps chosen so a project block stays near 110mm: two rows of projects plus
+   a category heading then fit on one page. */
+.gal__item img { max-height: 86mm; object-fit: contain; }
+
+.proj--wide .gal__item img { max-height: 92mm; }
 
 /* ---------- live site screenshots ---------- */
 
@@ -221,7 +240,7 @@ img { max-width: 100%; display: block; }
   page-break-inside: avoid;
 }
 
-.shot img { width: 100%; max-height: 150mm; object-fit: cover; object-position: top; }
+.shot img { width: 100%; max-height: 72mm; object-fit: cover; object-position: top; }
 
 .shot__missing { padding: 8mm; color: var(--muted); text-align: center; margin: 0; }
 

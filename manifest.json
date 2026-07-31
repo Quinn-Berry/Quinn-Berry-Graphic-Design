@@ -9,7 +9,7 @@
   "categories": [
     {
       "id": "print-editorial",
-      "order": 1,
+      "order": 5,
       "title": "Print & Editorial",
       "slug": "print-editorial",
       "dir": "01-print-editorial",
@@ -19,7 +19,7 @@
     },
     {
       "id": "web-design",
-      "order": 2,
+      "order": 1,
       "title": "Web Design",
       "slug": "web-design",
       "dir": "02-web-design",
@@ -28,7 +28,7 @@
     },
     {
       "id": "sports-graphics",
-      "order": 3,
+      "order": 2,
       "title": "Sports Graphics",
       "slug": "sports-graphics",
       "dir": "03-sports-graphics",
@@ -38,7 +38,7 @@
     },
     {
       "id": "logo",
-      "order": 4,
+      "order": 3,
       "title": "Logos",
       "slug": "logo",
       "dir": "04-logo",
@@ -49,7 +49,7 @@
     },
     {
       "id": "merchandise",
-      "order": 5,
+      "order": 4,
       "title": "Merchandise",
       "slug": "merchandise",
       "dir": "05-merchandise",

@@ -37,8 +37,14 @@
     section.appendChild(el('h2', 'cat__title', cat.title));
     if (cat.caption) section.appendChild(el('p', 'cat__caption', cat.caption));
 
+    /* Projects sit two across. Ones carrying several examples, and live-site
+       screenshots, span the full measure instead so their images stay legible. */
+    const projs = el('div', 'projs');
+    section.appendChild(projs);
+
     projects.forEach((p) => {
-      const block = el('article', 'proj');
+      const wide = p.images.length > 1;
+      const block = el('article', 'proj' + (wide ? ' proj--wide' : ''));
       block.appendChild(el('h3', 'proj__title', p.title));
       if (p.blurb) block.appendChild(el('p', 'proj__blurb', p.blurb));
 
@@ -57,7 +63,7 @@
         });
         shot.appendChild(img);
         block.appendChild(shot);
-        section.appendChild(block);
+        projs.appendChild(block);
         return;
       }
 
@@ -72,7 +78,7 @@
         gallery.appendChild(fig);
       });
       block.appendChild(gallery);
-      section.appendChild(block);
+      projs.appendChild(block);
     });
 
     doc.appendChild(section);
