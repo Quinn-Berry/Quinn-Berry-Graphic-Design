@@ -14,7 +14,11 @@
     return;
   }
 
-  const cats = [...manifest.categories].sort((a, b) => a.order - b.order);
+  /* The PDF runs its own section order. A category may carry printOrder to
+     sequence the printed edition without touching where it sits on the site;
+     without one it falls back to the site order. */
+  const seq = (c) => c.printOrder ?? c.order;
+  const cats = [...manifest.categories].sort((a, b) => seq(a) - seq(b));
 
   const projectsOf = (catId) =>
     manifest.projects
