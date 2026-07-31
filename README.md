@@ -67,6 +67,32 @@ The site renders it as a live, scrollable browser-framed embed with a
 `images/02-web-design/` and it will be shown instead. Re-run
 `python3 scripts/build_index.py` after editing the manifest.
 
+## The PDF edition
+
+`print.html` is a flat, printable version of the site: no thumbnails and no
+click-to-open panels, because a PDF has nothing to click. Every category and
+every project is laid out expanded, and the Web Design entries appear as
+captured screenshots plus their URLs in place of the live embeds.
+
+Rebuild it with one command:
+
+```sh
+./scripts/make_pdf.sh
+```
+
+That writes `Quinn-Berry-Graphic-Design-Portfolio.pdf` (about 20 pages, 8 MB)
+and runs three steps you can also run on their own:
+
+| Script | Does |
+|---|---|
+| `scripts/make_print_assets.py` | 1400px JPEGs into `print-assets/`, transparency flattened onto the right background |
+| `scripts/capture_sites.py` | screenshots each live site in the manifest into `print-assets/web/` |
+| `print.html` + `css/print.css` | the page Chrome renders to PDF |
+
+The PDF is gitignored — regenerate it rather than committing an 8 MB binary.
+Adding work to `manifest.json` flows through automatically; just re-run the
+script (add `--force` to either Python script to rebuild existing output).
+
 ## Deploying
 
 Pushing to `main` redeploys GitHub Pages — nothing else to do.

@@ -3,3 +3,7 @@ _inbox/*
 !_inbox/.gitkeep
 
 .DS_Store
+
+# Generated PDF edition — rebuild it with scripts/make_pdf.sh rather than
+# committing an 8 MB binary that churns on every content change.
+*.pdf

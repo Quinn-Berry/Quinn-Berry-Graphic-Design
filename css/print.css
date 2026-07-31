@@ -1,0 +1,274 @@
+/* ============================================================
+   Print edition (print.html -> PDF).
+   Same palette and type system as the site; laid out for paper.
+   ============================================================ */
+
+:root {
+  --bg:       #F3F0E9;
+  --ink:      #171614;
+  --accent:   #C0492A;
+  --muted:    #6B665E;
+  --hairline: #D8D3C8;
+
+  --display: "Fraunces", Georgia, serif;
+  --body:    "Inter", system-ui, -apple-system, sans-serif;
+  --mono:    "IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+
+@page {
+  size: letter;
+  margin: 14mm 16mm;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 10.5pt;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+img { max-width: 100%; display: block; }
+
+/* Each sheet starts a new page. The cover is the exception - it opens the
+   document. (Targeting .cover rather than :first-of-type matters: every
+   category section is the first of its type inside <main>.) */
+.sheet { break-before: page; page-break-before: always; }
+.cover { break-before: auto; page-break-before: auto; }
+
+/* ---------- cover ---------- */
+
+.cover { padding-top: 6mm; }
+
+.cover__eyebrow,
+.cat__eyebrow {
+  font-family: var(--mono);
+  font-size: 8pt;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0 0 8mm;
+  display: flex;
+  align-items: center;
+  gap: 4mm;
+}
+
+.cover__eyebrow::before,
+.cat__eyebrow::before {
+  content: "";
+  width: 12mm;
+  height: 1px;
+  background: var(--accent);
+}
+
+.cover__title {
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: 48pt;
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+  margin: 0 0 4mm;
+}
+
+.cover__role {
+  font-family: var(--mono);
+  font-size: 9.5pt;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0 0 10mm;
+}
+
+.cover__lede {
+  font-family: var(--display);
+  font-size: 15pt;
+  line-height: 1.4;
+  max-width: 30em;
+  margin: 0 0 14mm;
+}
+
+.cover__meta {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8mm;
+  padding: 6mm 0;
+  border-top: 1px solid var(--hairline);
+  border-bottom: 1px solid var(--hairline);
+  font-size: 9.5pt;
+  color: var(--muted);
+  margin-bottom: 10mm;
+}
+
+.cover__meta b,
+.cover__tools b {
+  display: block;
+  color: var(--ink);
+  font-weight: 600;
+  margin-bottom: 2mm;
+}
+
+.cover__tools { font-size: 9.5pt; color: var(--muted); }
+
+.cover__tools span { display: block; }
+
+.cover__flow {
+  margin-top: 3mm;
+  color: var(--ink);
+  font-weight: 600;
+}
+
+/* ---------- category ---------- */
+
+.cat__title {
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: 26pt;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  margin: 0 0 3mm;
+}
+
+.cat__caption {
+  color: var(--muted);
+  font-size: 10pt;
+  max-width: 34em;
+  margin: 0 0 8mm;
+  padding-bottom: 5mm;
+  border-bottom: 1px solid var(--hairline);
+}
+
+/* A category heading must never be stranded at the foot of a page without the
+   work it introduces - a tall first piece would otherwise leave it alone. */
+.cat__eyebrow,
+.cat__title,
+.cat__caption,
+.proj__title,
+.proj__blurb,
+.proj__url {
+  break-after: avoid;
+  page-break-after: avoid;
+}
+
+/* ---------- project ---------- */
+
+.proj {
+  margin-bottom: 10mm;
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+.proj__title {
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: 14pt;
+  margin: 0 0 2mm;
+}
+
+.proj__blurb {
+  color: var(--muted);
+  font-size: 10pt;
+  max-width: 40em;
+  margin: 0 0 4mm;
+}
+
+.proj__url {
+  font-family: var(--mono);
+  font-size: 8.5pt;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+  margin: 0 0 4mm;
+}
+
+/* ---------- galleries ---------- */
+
+.gal { display: grid; gap: 5mm; justify-items: center; }
+
+.gal--multi { grid-template-columns: 1fr 1fr; align-items: start; }
+
+.gal__item {
+  margin: 0;
+  border: 1px solid var(--hairline);
+  border-radius: 2mm;
+  overflow: hidden;
+  width: 100%;
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+.gal__item img { width: 100%; height: auto; }
+
+/* Single-image projects run the full text measure so the piece is the page,
+   rather than floating in a column of white. Paired images stay compact so a
+   project still keeps to one page. */
+.gal:not(.gal--multi) .gal__item { max-width: 100%; }
+/* 165mm, not more: a category heading (~45mm) plus a full project has to fit
+   inside one 251mm text block, or the heading strands on the page before. */
+.gal:not(.gal--multi) .gal__item img { max-height: 165mm; object-fit: contain; }
+.gal--multi .gal__item img { max-height: 120mm; object-fit: contain; }
+
+/* ---------- live site screenshots ---------- */
+
+.shot {
+  margin: 0;
+  border: 1px solid var(--hairline);
+  border-radius: 2mm;
+  overflow: hidden;
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+.shot img { width: 100%; max-height: 150mm; object-fit: cover; object-position: top; }
+
+.shot__missing { padding: 8mm; color: var(--muted); text-align: center; margin: 0; }
+
+/* ---------- closing page ---------- */
+
+.end__lede {
+  font-family: var(--display);
+  font-size: 13pt;
+  line-height: 1.4;
+  max-width: 30em;
+  margin: 0 0 10mm;
+}
+
+.end__list {
+  list-style: none;
+  margin: 0;
+  padding: 6mm 0 0;
+  border-top: 1px solid var(--hairline);
+  font-size: 10.5pt;
+  display: grid;
+  gap: 3mm;
+}
+
+.end__list b {
+  font-family: var(--mono);
+  font-size: 8pt;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 500;
+  display: inline-block;
+  min-width: 26mm;
+}
+
+/* On screen the sheets read as a stack of pages; in print @page handles it. */
+@media screen {
+  body { padding: 10mm; max-width: 216mm; margin: 0 auto; }
+  .sheet { padding-top: 12mm; border-top: 2px dashed var(--hairline); }
+  .cover { border-top: 0; padding-top: 0; }
+}
+
+/* The page colour has to survive to paper: every image was flattened onto this
+   exact off-white, so a white page would ring each one with a visible edge. */
+@media print {
+  html, body {
+    background: var(--bg);
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}
