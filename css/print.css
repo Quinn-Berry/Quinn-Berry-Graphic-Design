@@ -1,6 +1,10 @@
 /* ============================================================
    Print edition (print.html -> PDF).
    Same palette and type system as the site; laid out for paper.
+
+   Pages are built by js/print.js, not by the browser's own page breaking:
+   each .page is exactly one sheet tall and its rows flex to fill it, so no
+   sheet ends in a band of white.
    ============================================================ */
 
 :root {
@@ -13,6 +17,12 @@
   --display: "Fraunces", Georgia, serif;
   --body:    "Inter", system-ui, -apple-system, sans-serif;
   --mono:    "IBM Plex Mono", ui-monospace, Menlo, monospace;
+
+  /* Letter minus the @page margins below. js/print.js packs to the same
+     numbers, so anything changed here has to change there too. */
+  --text-w: 184mm;
+  --page-h: 251mm;
+  --row-gap: 7mm;
 }
 
 @page {
@@ -23,7 +33,8 @@
 *, *::before, *::after { box-sizing: border-box; }
 
 body {
-  margin: 0;
+  width: var(--text-w);
+  margin: 0 auto;
   background: var(--bg);
   color: var(--ink);
   font-family: var(--body);
@@ -34,15 +45,40 @@ body {
 
 img { max-width: 100%; display: block; }
 
-/* Sections flow rather than each claiming a fresh page: a category with three
-   short pieces used to leave two thirds of a sheet blank. The banded opener
-   below does the separating instead. Cover and closing page stay on their own. */
-.cover { break-after: page; page-break-after: always; }
-.end { break-before: page; page-break-before: always; }
+/* ---------- page scaffolding ---------- */
+
+.page {
+  height: var(--page-h);
+  display: flex;
+  flex-direction: column;
+  gap: var(--row-gap);
+  overflow: hidden;
+  break-before: page;
+  page-break-before: always;
+}
+
+/* Rows hold either one full-width block or a pair of projects side by side.
+   min-height:0 throughout, or a flex child refuses to shrink below its
+   content and the page overflows instead of the artwork resizing. */
+.row {
+  display: flex;
+  gap: var(--row-gap);
+  align-items: stretch;
+  min-height: 0;
+}
+
+.row > * { min-width: 0; min-height: 0; }
+
+.row--pair > .proj { flex: 1 1 0; }
+
+.row--full > *, .row--open > *, .row--end > * { flex: 1 1 auto; }
+
+/* Off-page container used only to measure natural row heights. */
+.measure { position: absolute; visibility: hidden; width: var(--text-w); }
 
 /* ---------- cover ---------- */
 
-.cover { padding-top: 6mm; }
+.cover { height: var(--page-h); padding-top: 6mm; }
 
 .cover__eyebrow,
 .cat__eyebrow {
@@ -149,21 +185,12 @@ img { max-width: 100%; display: block; }
   font-weight: 600;
 }
 
-/* ---------- category ---------- */
+/* ---------- category opener ---------- */
 
-/* The band that opens a section, kept whole and never left hanging at the
-   foot of a page without work under it. */
 .cat {
-  margin: 4mm 0 7mm;
   padding-top: 6mm;
   border-top: 2.5pt solid var(--ink);
-  break-inside: avoid;
-  page-break-inside: avoid;
-  break-after: avoid;
-  page-break-after: avoid;
 }
-
-.sheet:first-of-type .cat { margin-top: 0; }
 
 .cat__title {
   font-family: var(--display);
@@ -181,40 +208,9 @@ img { max-width: 100%; display: block; }
   margin: 0;
 }
 
-/* A category heading must never be stranded at the foot of a page without the
-   work it introduces - a tall first piece would otherwise leave it alone. */
-.cat__eyebrow,
-.cat__title,
-.cat__caption,
-.proj__num,
-.proj__title,
-.proj__blurb,
-.proj__url {
-  break-after: avoid;
-  page-break-after: avoid;
-}
-
 /* ---------- project ---------- */
 
-/* Two projects across. A project showing several examples, or a live-site
-   screenshot, takes the full measure so its images stay readable.
-   Inline-block rather than grid on purpose: Chrome fragments a grid container
-   across printed pages badly, splitting rows and ignoring break-inside on the
-   items. Inline-blocks in normal flow paginate predictably. */
-/* The gutter is padding, not margin: two 50% items plus any horizontal margin
-   would exceed the line and wrap to one per row. The renderer builds these
-   elements in JS, so there is no whitespace between them to add width either. */
-.proj {
-  display: inline-block;
-  vertical-align: top;
-  width: 50%;
-  padding-right: 7mm;
-  margin-bottom: 8mm;
-  break-inside: avoid;
-  page-break-inside: avoid;
-}
-
-.proj--wide { width: 100%; padding-right: 0; }
+.proj { display: flex; flex-direction: column; min-height: 0; }
 
 /* A numeral sets the rhythm down the page and marks where one piece ends and
    the next begins, which two-across work needs more than a stacked list does. */
@@ -238,11 +234,9 @@ img { max-width: 100%; display: block; }
 .proj__blurb {
   color: var(--muted);
   font-size: 10pt;
-  max-width: 40em;
+  max-width: 44em;
   margin: 0 0 4mm;
 }
-
-.proj--feature .proj__blurb { font-size: 10.5pt; max-width: 46em; }
 
 .proj__url {
   font-family: var(--mono);
@@ -254,88 +248,112 @@ img { max-width: 100%; display: block; }
 
 /* ---------- galleries ---------- */
 
-/* Inside a full-width project the examples run two across; inside a
-   half-width one there is a single column to fill. */
+/* The gallery takes whatever height the row has left, and its cells split that
+   evenly. When print.js grows a row to fill a page, the artwork grows with it
+   rather than a strip of white opening under the block. */
 .gal {
+  flex: 0 0 auto;
   display: grid;
   grid-template-columns: 1fr;
-  gap: 5mm;
+  grid-auto-rows: auto;
   justify-items: center;
   align-items: start;
+  gap: 5mm;
+  min-height: 0;
 }
 
-.proj--wide .gal { grid-template-columns: 1fr 1fr; }
+.row--full .gal--n2 { grid-template-columns: repeat(2, 1fr); }
+.row--full .gal--n3 { grid-template-columns: repeat(3, 1fr); }
 
-/* Every example sits in a square cell. Letting each image set its own height
-   left ragged rows and pockets of white wherever a wide piece rendered short;
-   uniform cells make rows line up and a page fill predictably. */
+/* print.js drops a three-up gallery to two columns when its page would
+   otherwise come up short — wider columns let the artwork grow. */
+.row--full .gal--n3.gal--relax { grid-template-columns: repeat(2, 1fr); }
+.row--full .gal--n4 { grid-template-columns: repeat(2, 1fr); }
+
+/* The frame shrink-wraps its artwork: the image sits in flow with a height cap
+   and the cell takes its size from it. Nothing here uses a percentage height —
+   those do not resolve down a flex-and-grid chain, and the image falls back to
+   its natural size and is clipped. */
 .gal__item {
   margin: 0;
   border: 1px solid var(--hairline);
   border-radius: 2mm;
   overflow: hidden;
-  width: 100%;
-  aspect-ratio: 1 / 1;
-  display: grid;
-  place-items: center;
   padding: 4mm;
-  break-inside: avoid;
-  page-break-inside: avoid;
+  width: fit-content;
+  max-width: 100%;
+  min-height: 0;
 }
 
-.gal__item img { max-width: 100%; max-height: 100%; width: auto; height: auto; }
-
-/* A feature opens its section: the banded heading plus one large piece takes
-   the sheet on purpose, so that page reads as an opener rather than as a page
-   someone failed to fill. Square cells are dropped here — the piece sets its
-   own shape at 168mm, which is what the text block leaves under the opener. */
-.proj--feature .gal:not(.gal--multi) { grid-template-columns: 1fr; }
-
-.proj--feature .gal:not(.gal--multi) .gal__item {
-  width: 100%;
-  aspect-ratio: auto;
-  padding: 5mm;
+/* The height cap is what keeps a section's work to a page. Width follows from
+   it, so a tall poster narrows rather than matting itself in a wide frame.
+   print.js raises --cap per page until that page's work fills the sheet, so
+   these are starting sizes rather than final ones. */
+.gal__item img {
+  max-width: 100%;
+  max-height: calc(74mm * var(--cap, 1));
+  width: auto;
+  height: auto;
 }
 
-/* 140mm, not more: the opener band runs about 50mm and the title block about
-   25mm, so a taller feature no longer fits beneath its own heading and Chrome
-   pushes it to the next page, stranding the heading alone on the one before. */
-.proj--feature .gal:not(.gal--multi) .gal__item img { max-height: 140mm; }
+.proj--feature .gal__item img { max-height: calc(132mm * var(--cap, 1)); }
 
-/* Galleries of several examples get shallower cells than the square default,
-   so two rows of them still sit under a section opener. */
-.gal--multi .gal__item { aspect-ratio: 4 / 3; }
-
-/* Three examples run three across rather than two-plus-a-gap, which both drops
-   the empty cell and lets the next project share the page. Features keep two
-   columns: they carry the section and should stay large. */
-.proj--wide:not(.proj--feature) .gal--n3 { grid-template-columns: repeat(3, 1fr); }
+/* Pinned to the cell's edges, then object-fit scales the artwork inside it.
+   A percentage width/height does not work here: the cell's own height comes
+   from a 1fr grid row inside a flex column, which leaves the percentage
+   unresolved, and the image falls back to its natural size and is clipped. */
+.gal__item img { display: block; }
 
 /* ---------- live site screenshots ---------- */
 
+/* Screenshots are sized by height rather than a fixed ratio, so the same --cap
+   that grows the artwork elsewhere grows these too — and because they crop from
+   the top, a taller frame simply shows more of the page. */
 .shot {
   margin: 0;
   border: 1px solid var(--hairline);
   border-radius: 2mm;
   overflow: hidden;
-  break-inside: avoid;
-  page-break-inside: avoid;
+  flex: 0 0 auto;
+  width: 100%;
+  height: calc(62mm * var(--cap, 1));
 }
 
-.shot img { width: 100%; max-height: 80mm; object-fit: cover; object-position: top; }
+.proj--feature .shot { height: calc(96mm * var(--cap, 1)); }
 
-.proj--feature .shot img { max-height: 150mm; }
+.shot { position: relative; }
+
+/* Screenshots crop from the top rather than letterbox: a homepage reads as
+   itself from the masthead down. */
+.shot img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+}
 
 .shot__missing { padding: 8mm; color: var(--muted); text-align: center; margin: 0; }
 
-/* ---------- closing page ---------- */
+/* ---------- closing block ---------- */
+
+/* The closing block is short by nature; centring it in whatever height is left
+   reads as composition rather than as a page that ran out of content. */
+.end {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+}
 
 .end__lede {
   font-family: var(--display);
   font-size: 13pt;
   line-height: 1.4;
   max-width: 30em;
-  margin: 0 0 10mm;
+  margin: 0 0 8mm;
 }
 
 .end__list {
@@ -359,11 +377,12 @@ img { max-width: 100%; display: block; }
   min-width: 26mm;
 }
 
-/* On screen the sheets read as a stack of pages; in print @page handles it. */
+/* On screen the pages read as a stack of sheets; in print @page handles it.
+   Outline and margin only — padding or a border here would shrink the content
+   box on screen but not on paper, and print.js measures on screen. */
 @media screen {
-  body { padding: 10mm; max-width: 216mm; margin: 0 auto; }
-  .sheet { padding-top: 12mm; border-top: 2px dashed var(--hairline); }
-  .cover { border-top: 0; padding-top: 0; }
+  body { padding: 10mm 0; }
+  .page { outline: 1px dashed var(--hairline); margin-bottom: 8mm; }
 }
 
 /* The page colour has to survive to paper: every image was flattened onto this
