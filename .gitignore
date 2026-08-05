@@ -4,6 +4,7 @@ _inbox/*
 
 .DS_Store
 
-# Generated PDF edition — rebuild it with scripts/make_pdf.sh rather than
-# committing an 8 MB binary that churns on every content change.
+# Generated PDFs stay out of the repo. The PDF edition is a separate deliverable
+# from the site — rebuild it with scripts/make_pdf.sh rather than committing an
+# 8 MB binary that churns on every content change.
 *.pdf

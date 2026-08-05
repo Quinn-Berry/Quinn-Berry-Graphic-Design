@@ -35,7 +35,12 @@ trap 'kill $SERVER 2>/dev/null || true' EXIT
 sleep 2
 
 echo "==> rendering PDF"
+# A throwaway profile each run: Chrome's default one keeps a disk cache, and a
+# stale css/print.css there silently renders the PDF from the previous layout.
+PROFILE="$(mktemp -d)"
+trap 'kill $SERVER 2>/dev/null || true; rm -rf "$PROFILE"' EXIT
 "$CHROME" --headless=new --disable-gpu --no-pdf-header-footer \
+  --user-data-dir="$PROFILE" --disk-cache-size=1 \
   --virtual-time-budget=20000 \
   --print-to-pdf="$OUT" "http://127.0.0.1:$PORT/print.html" >/dev/null 2>&1
 

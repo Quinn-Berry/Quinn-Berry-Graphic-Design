@@ -211,6 +211,14 @@ p { margin: 0 0 1em; }
 
 .adobe__logos img { width: 100%; height: 100%; object-fit: cover; }
 
+/* Each further toolset is divided off by the same hairline that opens the
+   panel, so the three read as one stack rather than three separate cards. */
+.adobe__group {
+  border-top: 1px solid var(--hairline);
+  margin-top: 22px;
+  padding-top: 22px;
+}
+
 @media (max-width: 400px) {
   .adobe__logos { grid-template-columns: repeat(3, 1fr); }
   .adobe__logos li { width: auto; height: auto; aspect-ratio: 1; }
