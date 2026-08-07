@@ -31,6 +31,10 @@ IMAGES = ROOT / "images"
 THUMBS = ROOT / "thumbs"
 THUMB_WIDTH = 600
 THUMB_EXT = ".webp"
+# Originals are PNG, except full-page web captures, which are already-lossy
+# JPEG screenshots - re-encoding those as PNG would inflate them ~15x without
+# recovering any detail. See CLAUDE.md section 2.
+SOURCE_EXTS = {".png", ".jpg", ".jpeg"}
 THUMB_QUALITY = 82
 TALL_RATIO = 1.6   # images taller than this are top-cropped for the thumb
 FORCE = "--force" in sys.argv
@@ -43,7 +47,12 @@ def main() -> int:
     built = skipped = 0
     src_bytes = thumb_bytes = 0
 
-    for src in sorted(IMAGES.rglob("*.png")):
+    sources = sorted(
+        p for p in IMAGES.rglob("*")
+        if p.is_file() and p.suffix.lower() in SOURCE_EXTS
+    )
+
+    for src in sources:
         rel = src.relative_to(IMAGES)
         dst = (THUMBS / rel).with_suffix(THUMB_EXT)
         dst.parent.mkdir(parents=True, exist_ok=True)
@@ -76,8 +85,8 @@ def main() -> int:
     # Any thumb whose source is gone is stale - report it rather than delete.
     for old in sorted(THUMBS.rglob("*")):
         if old.is_file() and old.suffix in (THUMB_EXT, ".png"):
-            source = (IMAGES / old.relative_to(THUMBS)).with_suffix(".png")
-            if not source.exists():
+            stem = (IMAGES / old.relative_to(THUMBS)).with_suffix("")
+            if not any(stem.with_suffix(ext).exists() for ext in SOURCE_EXTS):
                 print(f"  STALE  {old.relative_to(THUMBS)}  (no matching source image)")
 
     print(f"\nDone. {built} built, {skipped} up to date.")

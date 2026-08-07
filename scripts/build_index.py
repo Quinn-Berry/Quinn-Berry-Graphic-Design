@@ -70,7 +70,12 @@ for cat in sorted(m["categories"], key=lambda c: c["order"]):
             lines.append(f"- `{fn}`{suffix}")
         lines.append("")
 
-for f in sorted((ROOT / image_root).rglob("*.png")):
+# Sources are PNG, except web captures, which are JPEG. See CLAUDE.md section 2.
+SOURCE_EXTS = {".png", ".jpg", ".jpeg"}
+for f in sorted(
+    p for p in (ROOT / image_root).rglob("*")
+    if p.is_file() and p.suffix.lower() in SOURCE_EXTS
+):
     if f.resolve() not in referenced:
         problems.append(f"orphan (on disk, not in manifest): {f.relative_to(ROOT)}")
 

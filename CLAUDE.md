@@ -55,6 +55,15 @@ smaller at grid size with no visible difference, and it preserves alpha, so
 transparent logos still sit correctly on the page background. Do not "unify"
 these to one format.
 
+**The one exception: full-page web captures are JPEG.** Everything in
+`images/02-web-design/` is a screenshot of a live site, not source art. It
+arrives already lossy, and it has no transparency. Re-encoding it as PNG would
+inflate it roughly 15× while recovering none of the detail the JPEG encoder
+already discarded — the artefacts are baked in. So web captures stay `.jpg`;
+every other category stays `.png`. Thumbnails are WebP regardless of source
+format. Because two source extensions now exist, **derive a thumb path by
+replacing the extension, never by assuming `.png`** — see §5.
+
 ---
 
 ## 3. Categories
@@ -210,12 +219,13 @@ without a schema change.
 
 ### Resolving a path
 
-Filenames in the manifest always end in `.png`. Swap the extension for the
-thumb — never assume the thumb is also `.png`.
+Filenames in the manifest end in `.png`, or `.jpg` for web captures. Strip
+whichever extension is there — do not hardcode `.png` — and never assume the
+thumb shares the source's extension. Thumbs are always `thumbExt`.
 
 ```js
 const cat   = manifest.categories.find(c => c.id === project.category);
-const stem  = filename.replace(/\.png$/, "");
+const stem  = filename.replace(/\.(png|jpe?g)$/i, "");
 
 const full  = `${manifest.imageRoot}/${cat.dir}/${filename}`;
 // -> images/04-logo/logo-twigtree-01.png
@@ -266,7 +276,9 @@ site code, committed as a final asset, or deployed.
 
 - Do not rename files without updating `manifest.json` in the same change.
 - Do not commit anything from `_inbox/`.
-- Do not add non-PNG assets to `images/`. Everything here is PNG by decision.
+- Do not add non-PNG assets to `images/`, with one exception: full-page web
+  captures in `02-web-design/` are JPEG, for the reason given in §2. Every
+  other category is PNG by decision.
 - Do not edit files in `thumbs/` by hand — they are generated output and will
   be overwritten by `make_thumbs.py`.
 - Do not assume a thumb shares its source's `.png` extension. Thumbs are

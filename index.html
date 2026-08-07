@@ -13,112 +13,393 @@
 <meta property="og:image" content="https://quinn-berry.github.io/Quinn-Berry-Graphic-Design/images/03-sports-graphics/sports-gameday-matchup-01.png">
 <meta name="twitter:card" content="summary_large_image">
 
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23171614'/%3E%3Ctext x='32' y='44' font-family='Georgia,serif' font-size='36' fill='%23F3F0E9' text-anchor='middle'%3EQ%3C/text%3E%3C/svg%3E">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/favicon-180.png">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&family=Libre+Franklin:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/site.css">
 </head>
 <body>
 
 <header class="nav">
-  <div class="wrap nav__inner">
-    <a class="nav__brand" href="#top"><b>Quinn Berry</b><span class="nav__brand-sub"> · Graphic Design</span></a>
-    <nav class="nav__links" aria-label="Site">
-      <a href="#work">Work</a>
-      <a href="#about">About</a>
+  <div class="nav__inner">
+    <a class="nav__brand" href="#top">
+      <span class="nav__name">Quinn Berry</span>
+      <span class="nav__kicker">Graphic Design</span>
+    </a>
+    <div class="nav__meta">
+      <span class="nav__hide-sm">01—06</span>
+      <span class="nav__hide-sm">Cambridge, MA</span>
       <a href="#contact">Contact</a>
-    </nav>
+    </div>
   </div>
 </header>
 
-<main id="top">
+<main class="page" id="top">
 
-  <section class="hero wrap">
-    <div class="hero__intro">
-      <p class="hero__tagline"><span>Graphic Designer</span> · Cambridge, MA</p>
-      <h1>Building brand image through <em>design</em>.</h1>
-      <p class="hero__lede">Posters, gameday graphics, logo marks, merch, and living
-      websites — work that holds up on a wall, on a feed, and in a browser.</p>
+  <!-- ===================== 01 MARK ===================== -->
+  <section class="section section--hero" aria-labelledby="s1">
+    <div class="rail" aria-hidden="true">
+      <div class="rail__no">01</div>
+      <div class="rail__of">/ 06</div>
+      <div class="rail__dash"></div>
+      <div class="rail__label">Mark</div>
+    </div>
+    <div class="plate" aria-hidden="true">Twigtree · Woodberry · Run the Race · Max Mancuso · Plate 01-A</div>
+    <div class="swatches" aria-hidden="true">
+      <i style="background:#1a1917"></i>
+      <i style="background:#0e4a55"></i>
+      <i style="background:#1a5578"></i>
+      <i style="background:#f7941e"></i>
+      <i style="background:#d7ab7f"></i>
+      <span class="swatches__label">5-swatch</span>
     </div>
 
-    <aside class="adobe reveal" aria-label="Software experience">
-      <p class="adobe__text"><strong>7+ years experience in Adobe Creative
-      Suite</strong> — Premiere Pro, After Effects, Photoshop, Illustrator, Media
-      Encoder, Lightroom. I shoot, edit, design, and ship the content that makes
-      it work.<br><strong>Brief — Concept — Design — Refine — Deliver.</strong></p>
-      <ul class="adobe__logos">
-        <li><img src="assets/adobe/premiere_pro.jpeg" alt="Adobe Premiere Pro" width="82" height="82" loading="lazy"></li>
-        <li><img src="assets/adobe/after_effects.jpeg" alt="Adobe After Effects" width="82" height="82" loading="lazy"></li>
-        <li><img src="assets/adobe/photoshop.jpeg" alt="Adobe Photoshop" width="82" height="82" loading="lazy"></li>
-        <li><img src="assets/adobe/illustrator.jpeg" alt="Adobe Illustrator" width="82" height="82" loading="lazy"></li>
-        <li><img src="assets/adobe/media_encoder.jpeg" alt="Adobe Media Encoder" width="82" height="82" loading="lazy"></li>
-        <li><img src="assets/adobe/lightroom.jpeg" alt="Adobe Lightroom" width="82" height="82" loading="lazy"></li>
-      </ul>
-
-      <div class="adobe__group">
-        <p class="adobe__text"><strong>Expert in Claude, Midjourney, and
-        Figma</strong> — Claude Design and Claude Code for concepting, iteration,
-        and building what ships; Midjourney for visual reference; Figma for
-        interface design.</p>
-        <ul class="adobe__logos">
-          <li><img src="assets/tools/claude.png" alt="Claude" width="82" height="82" loading="lazy"></li>
-          <li><img src="assets/tools/midjourney.png" alt="Midjourney" width="82" height="82" loading="lazy"></li>
-          <li><img src="assets/tools/figma.png" alt="Figma" width="82" height="82" loading="lazy"></li>
-        </ul>
+    <div class="hero">
+      <div class="hero__intro">
+        <h1 id="s1">Quinn Berry</h1>
+        <p class="hero__lede">Building brand image through design. Graphic designer in Cambridge, Massachusetts — brand, web, and content strategy underneath it.</p>
       </div>
-    </aside>
-  </section>
 
-  <section class="work" id="work">
-    <div class="wrap">
-      <p class="eyebrow">Selected Work</p>
-      <h2>The portfolio</h2>
-      <div class="cat-grid" id="grid"></div>
-      <div class="panel" id="category-panel" hidden></div>
+      <aside class="toolset" aria-label="Software experience">
+        <div class="toolset__label">Toolset</div>
+        <p><strong>7+ years experience in Adobe Creative Suite</strong> — Premiere Pro, After Effects, Photoshop, Illustrator, Media Encoder, Lightroom. I shoot, edit, design, and ship the content that makes it work.<br><strong>Brief — Concept — Design — Refine — Deliver.</strong></p>
+        <div class="toolset__row">
+          <img src="assets/adobe/premiere_pro.jpeg" alt="Adobe Premiere Pro" width="46" height="46" loading="lazy" decoding="async">
+          <img src="assets/adobe/after_effects.jpeg" alt="Adobe After Effects" width="46" height="46" loading="lazy" decoding="async">
+          <img src="assets/adobe/photoshop.jpeg" alt="Adobe Photoshop" width="46" height="46" loading="lazy" decoding="async">
+          <img src="assets/adobe/illustrator.jpeg" alt="Adobe Illustrator" width="46" height="46" loading="lazy" decoding="async">
+          <img src="assets/adobe/media_encoder.jpeg" alt="Adobe Media Encoder" width="46" height="46" loading="lazy" decoding="async">
+          <img src="assets/adobe/lightroom.jpeg" alt="Adobe Lightroom" width="46" height="46" loading="lazy" decoding="async">
+        </div>
+        <p class="is-second"><strong>Expert in Claude, Midjourney, and Figma</strong> — Claude Design and Claude Code for concepting, iteration, and building what ships; Midjourney for visual reference; Figma for interface design.</p>
+        <div class="toolset__row">
+          <img src="assets/tools/claude.png" alt="Claude" width="46" height="46" loading="lazy" decoding="async">
+          <img src="assets/tools/midjourney.png" alt="Midjourney" width="46" height="46" loading="lazy" decoding="async">
+          <img src="assets/tools/figma.png" alt="Figma" width="46" height="46" loading="lazy" decoding="async">
+        </div>
+      </aside>
     </div>
-  </section>
 
-  <section class="about" id="about">
-    <div class="wrap about__grid">
-      <div>
-        <p class="eyebrow">About</p>
-        <p class="about__text reveal">I build brand images that people remember —
-        the logo, the merch, the gameday graphic, and the website, all speaking
-        one visual language. Whether you’re launching a brand, growing an
-        audience, or selling out a t-shirt run, I design the identity and the
-        campaign that carries it from print to feed to browser.</p>
-      </div>
-      <div class="about__facts reveal">
-        <div><b>Focus</b> Print · Web · Sports · Identity · Merch</div>
-        <div><b>Based in</b> Cambridge, Massachusetts</div>
-        <div><b>Currently</b> Open to freelance &amp; collaborations</div>
+    <div class="hero__cue"><span>Let's start with a logo.</span></div>
+
+    <div class="marks">
+      <div class="marks__frame">
+        <div class="marks__window">
+          <div class="marks__track" id="marks-track"></div>
+        </div>
+        <div class="marks__meta">
+          <span id="marks-name">Twigtree</span>
+          <span id="marks-count">01 / 04</span>
+        </div>
       </div>
     </div>
   </section>
 
-  <section class="contact" id="contact">
-    <div class="wrap">
-      <p class="eyebrow">Contact</p>
-      <h2 class="reveal">Have a project in mind? <em>Say hello.</em></h2>
-      <div class="contact__links reveal">
-        <a href="mailto:qjberry@gmail.com">qjberry@gmail.com</a>
-        <a href="https://github.com/Quinn-Berry" target="_blank" rel="noopener">GitHub ↗</a>
-        <a href="https://linkedin.com/in/quinn-berry" target="_blank" rel="noopener">LinkedIn ↗</a>
-        <span class="contact__loc">Cambridge, MA</span>
+  <!-- ===================== 02 TYPE SYSTEM ===================== -->
+  <section class="section" aria-labelledby="s2">
+    <div class="rail" aria-hidden="true">
+      <div class="rail__no">02</div>
+      <div class="rail__of">/ 06</div>
+      <div class="rail__dash"></div>
+      <div class="rail__label">Type<br>system</div>
+    </div>
+    <div class="plate" aria-hidden="true">Quinn Berry · Palette + specimen · Plate 02-A · 5/C</div>
+    <div class="swatches" aria-hidden="true">
+      <i style="background:#8f2537"></i>
+      <i style="background:#f7941e"></i>
+      <i style="background:#183d4e"></i>
+      <i style="background:#dec79f"></i>
+      <i style="background:#1a1917"></i>
+    </div>
+
+    <div class="section__body">
+      <div class="block block--520"><span class="crop" aria-hidden="true"></span>
+        <h2 class="h2" id="s2">Type system</h2>
+        <p class="lede" style="max-width:410px">One voice across print, feed, and browser. Colour drawn from the work itself, never chosen ahead of it.</p>
+
+        <div class="specimen">Aa</div>
+
+        <div class="faces">
+          <div>
+            <div class="faces__k">Display</div>
+            <div class="faces__display">Libre Caslon</div>
+          </div>
+          <div>
+            <div class="faces__k">Text</div>
+            <div class="faces__text">Libre Franklin</div>
+          </div>
+        </div>
+
+        <div class="palette">
+          <div><i style="background:#8f2537"></i><span>8F2537</span></div>
+          <div><i style="background:#f7941e"></i><span>F7941E</span></div>
+          <div><i style="background:#183d4e"></i><span>183D4E</span></div>
+          <div><i style="background:#dec79f"></i><span>DEC79F</span></div>
+          <div><i style="background:#1a1917"></i><span>1A1917</span></div>
+        </div>
+        <div class="palette__note">Sampled — Lax Stache · Run the Race · All Fish · Pint Night · Ink</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== 03 POSTER ===================== -->
+  <section class="section" aria-labelledby="s3">
+    <div class="rail" aria-hidden="true">
+      <div class="rail__no">03</div>
+      <div class="rail__of">/ 06</div>
+      <div class="rail__dash"></div>
+      <div class="rail__label">Poster</div>
+    </div>
+    <div class="plate" aria-hidden="true">HEADstrong · BHA × onX · 2024 · Plate 03-A · 4/C uncoated</div>
+    <div class="swatches" aria-hidden="true">
+      <i style="background:#dec79f"></i>
+      <i style="background:#88b847"></i>
+      <i style="background:#1b649d"></i>
+      <i style="background:#8f2537"></i>
+      <i style="background:#211e1a"></i>
+    </div>
+
+    <div class="section__body">
+      <div class="block block--800"><span class="crop" aria-hidden="true"></span>
+        <h2 class="h2" id="s3">Poster</h2>
+        <p class="lede" style="max-width:430px">Poster series and campaign graphics for causes, events, and fundraisers.</p>
+
+        <div class="grid grid--2-wide" style="margin-top:64px">
+          <div>
+            <div class="client">HEADstrong Foundation</div>
+            <p class="client__note">Poster series for <strong>Lax Stache Madness</strong>, an annual lacrosse fundraiser for families living with cancer. The campaign <strong>raised $70,000</strong>.</p>
+            <div class="grid grid--2-tight">
+              <div>
+                <img src="thumbs/01-print-editorial/print-lax-stache-madness-01.webp" alt="Lax Stache Madness poster" loading="lazy" decoding="async">
+                <div class="caption caption--sm"><span>Mustache</span><span>03-1</span></div>
+              </div>
+              <div>
+                <img src="thumbs/01-print-editorial/print-lax-stache-madness-03.webp" alt="Lax Stache Madness donation board, Bates Men's Lacrosse and the HEADstrong Foundation" loading="lazy" decoding="async">
+                <div class="caption caption--sm"><span>Donate</span><span>03-2</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <div class="client">Backcountry Hunters &amp; Anglers</div>
+            <p class="client__note">Print and social graphics for <strong>Public Lands Pint Night</strong>, BHA's conservation fundraiser in <strong>collaboration with onX</strong>.</p>
+            <div class="grid grid--2-tight">
+              <div>
+                <img src="thumbs/01-print-editorial/print-public-lands-pint-night-02.webp" alt="Public Lands Pint Night poster" loading="lazy" decoding="async">
+                <div class="caption caption--sm"><span>Pint Night</span><span>03-3</span></div>
+              </div>
+              <div>
+                <img src="thumbs/01-print-editorial/print-public-lands-pint-night-04.webp" alt="Public Lands Pint Night, story cut" loading="lazy" decoding="async">
+                <div class="caption caption--sm"><span>Story cut</span><span>03-4</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== 04 MERCH ===================== -->
+  <section class="section" aria-labelledby="s4">
+    <div class="rail" aria-hidden="true">
+      <div class="rail__no">04</div>
+      <div class="rail__of">/ 06</div>
+      <div class="rail__dash"></div>
+      <div class="rail__label">Merch</div>
+    </div>
+    <div class="plate" aria-hidden="true">Fly Fishers Intl · Bates '25 · Okay Buddy · Plate 04-A · Screen, 4/C</div>
+    <div class="swatches" aria-hidden="true">
+      <i style="background:#183d4e"></i>
+      <i style="background:#b25b28"></i>
+      <i class="is-pale" style="background:#f6e6c6"></i>
+      <i style="background:#183f39"></i>
+      <i style="background:#f2632c"></i>
+    </div>
+
+    <div class="section__body">
+      <div class="block block--900"><span class="crop" aria-hidden="true"></span>
+        <h2 class="h2" id="s4">Merch</h2>
+        <p class="lede">Apparel graphics and merch drops, including two winning competition designs.</p>
+
+        <div class="grid grid--2" style="margin-top:56px">
+          <div class="merch-cell merch-cell--330">
+            <img src="thumbs/05-merchandise/merch-all-fish-all-waters-01.webp" alt="All Fish All Waters fly, Fly Fishers International" loading="lazy" decoding="async">
+            <div class="caption"><span>Fly Fishers International</span><span>04-1</span></div>
+          </div>
+          <div class="merch-cell merch-cell--300">
+            <img src="thumbs/05-merchandise/merch-bates-class-of-2025-01.webp" alt="Bates Class of 2025" loading="lazy" decoding="async">
+            <div class="caption"><span>Bates '25 · Qty 600</span><span>04-2</span></div>
+          </div>
+        </div>
+
+        <div class="grid grid--2" style="margin-top:60px">
+          <div class="merch-cell merch-cell--330">
+            <img src="thumbs/05-merchandise/merch-okay-buddy-02.webp" alt="Okay Buddy" loading="lazy" decoding="async">
+            <div class="caption"><span>Okay Buddy · Streetwear</span><span>04-3</span></div>
+          </div>
+          <div class="merch-cell merch-cell--330">
+            <img src="thumbs/05-merchandise/merch-okay-buddy-01.webp" alt="Okay Buddy wordmark" loading="lazy" decoding="async">
+            <div class="caption"><span>Wordmark, knockout</span><span>04-4</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== 05 FEED ===================== -->
+  <section class="section" aria-labelledby="s5">
+    <div class="rail" aria-hidden="true">
+      <div class="rail__no">05</div>
+      <div class="rail__of">/ 06</div>
+      <div class="rail__dash"></div>
+      <div class="rail__label">Feed</div>
+    </div>
+    <div class="plate" aria-hidden="true">Bates Men's Lacrosse · 2024 season · Plate 05-A · RGB</div>
+    <div class="swatches" aria-hidden="true">
+      <i style="background:#861626"></i>
+      <i style="background:#46413c"></i>
+      <i style="background:#7b7769"></i>
+      <i style="background:#e6e2dd"></i>
+      <i style="background:#1f221a"></i>
+    </div>
+
+    <div class="section__body">
+      <div class="block block--1000"><span class="crop" aria-hidden="true"></span>
+        <div class="feed__head">
+          <div>
+            <h2 class="h2" id="s5">Feed</h2>
+            <p class="lede" style="max-width:430px">Gameday matchups, player features, and season schedules built for the feed.</p>
+          </div>
+          <div class="feed__ratio">
+            <b>1:5</b>
+            <span>One system · five gameday formats</span>
+          </div>
+        </div>
+
+        <div class="grid grid--3" style="margin-top:60px">
+          <div>
+            <img src="thumbs/03-sports-graphics/sports-gameday-feature-01.webp" alt="Gameday feature graphic" loading="lazy" decoding="async">
+            <div class="caption"><span>Gameday</span><span>05-1</span></div>
+          </div>
+          <div>
+            <img src="thumbs/03-sports-graphics/sports-gameday-matchup-01.webp" alt="Gameday matchup graphic" loading="lazy" decoding="async">
+            <div class="caption"><span>Up next</span><span>05-2</span></div>
+          </div>
+          <div>
+            <img src="thumbs/03-sports-graphics/sports-player-stat-card-01.webp" alt="Player stat card" loading="lazy" decoding="async">
+            <div class="caption"><span>Stat card</span><span>05-3</span></div>
+          </div>
+        </div>
+
+        <div class="grid grid--feed2" style="margin-top:44px">
+          <div>
+            <img src="thumbs/03-sports-graphics/sports-player-feature-01.webp" alt="Player feature graphic" loading="lazy" decoding="async">
+            <div class="caption"><span>Player feature</span><span>05-4</span></div>
+          </div>
+          <div>
+            <img src="thumbs/03-sports-graphics/sports-season-schedule-01.webp" alt="Season schedule" loading="lazy" decoding="async">
+            <div class="caption"><span>Season schedule</span><span>05-5</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== 06 WEBSITE ===================== -->
+  <section class="section" aria-labelledby="s6">
+    <div class="rail" aria-hidden="true">
+      <div class="rail__no">06</div>
+      <div class="rail__of">/ 06</div>
+      <div class="rail__dash"></div>
+      <div class="rail__label">Website</div>
+    </div>
+    <div class="plate plate--faint" aria-hidden="true">Cooseing · Twigtree · Ada Anderson · Plate 06-A · RGB</div>
+    <div class="swatches" aria-hidden="true">
+      <i style="background:#0e0e10"></i>
+      <i class="is-pale" style="background:#f4f1ea"></i>
+      <i style="background:#0b1f3a"></i>
+      <i style="background:#641415"></i>
+      <i style="background:#63615e"></i>
+    </div>
+
+    <div class="section__body">
+      <div class="block block--1120"><span class="crop" aria-hidden="true"></span>
+        <h2 class="h2" id="s6">Website</h2>
+        <p class="lede" style="max-width:430px">Live client websites, designed and built end to end.</p>
+
+        <div style="margin-top:60px">
+          <a class="browser" href="https://quinn-berry.github.io/Cooseing/" target="_blank" rel="noopener" style="display:block">
+            <div class="browser__bar">
+              <div class="browser__dots" aria-hidden="true"><i></i><i></i><i></i></div>
+              <div class="browser__url">quinn-berry.github.io/Cooseing</div>
+            </div>
+            <div class="browser__shot" style="height:470px">
+              <img src="images/02-web-design/web-cooseing-01.jpg" alt="Cooseing, athlete brand site for HYROX PRO athlete Max Mancuso" loading="lazy" decoding="async">
+            </div>
+          </a>
+          <div class="caption"><span>Cooseing — athlete brand site for HYROX PRO Max Mancuso</span><span>06-1</span></div>
+        </div>
+
+        <div class="sites-2">
+          <div>
+            <a class="browser browser--sm" href="https://twigtreevintage.com" target="_blank" rel="noopener" style="display:block">
+              <div class="browser__bar">
+                <div class="browser__dots" aria-hidden="true"><i></i><i></i><i></i></div>
+                <div class="browser__url">twigtreevintage.com</div>
+              </div>
+              <div class="browser__shot" style="height:330px">
+                <img src="thumbs/02-web-design/web-twigtree-site-01.webp" alt="Twigtree, vintage streetwear storefront" loading="lazy" decoding="async">
+              </div>
+            </a>
+            <div class="caption"><span>Twigtree</span><span>06-2</span></div>
+          </div>
+          <div>
+            <a class="browser browser--sm" href="https://adamay425.github.io/Ada-Anderson-/" target="_blank" rel="noopener" style="display:block">
+              <div class="browser__bar">
+                <div class="browser__dots" aria-hidden="true"><i></i><i></i><i></i></div>
+                <div class="browser__url">adamay425.github.io/Ada-Anderson-</div>
+              </div>
+              <div class="browser__shot" style="height:330px">
+                <img src="thumbs/02-web-design/web-ada-anderson-01.webp" alt="Ada Anderson, personal site for a customer success professional" loading="lazy" decoding="async">
+              </div>
+            </a>
+            <div class="caption"><span>Ada Anderson</span><span>06-3</span></div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
 </main>
 
-<footer class="footer wrap">
-  <span>© 2026 Quinn Berry</span>
-  <span>Built in vanilla HTML / CSS / JS</span>
+<footer class="colophon page" id="contact">
+  <div class="colophon__grid">
+    <div>
+      <div class="colophon__cta">Open to full-time<br>creative roles.</div>
+      <div class="colophon__links">
+        <a href="mailto:qjberry@gmail.com">qjberry@gmail.com</a>
+        <a href="https://linkedin.com/in/quinn-berry" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://github.com/Quinn-Berry" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+    <div>
+      <div class="colophon__k">Typefaces</div>
+      <div class="colophon__v">Libre Caslon Display<br>Libre Franklin<br>IBM Plex Mono</div>
+    </div>
+    <div>
+      <div class="colophon__k">Built</div>
+      <div class="colophon__v">Vanilla HTML / CSS / JS<br>No framework, no build step<br>Hosted on GitHub Pages</div>
+    </div>
+    <div>
+      <div class="colophon__k">Colophon</div>
+      <div class="colophon__v">Cambridge, Massachusetts<br>August 2026<br>© Quinn Berry</div>
+    </div>
+  </div>
 </footer>
 
-<script src="js/shared.js"></script>
-<script src="js/main.js"></script>
+<script src="js/site.js"></script>
 </body>
 </html>

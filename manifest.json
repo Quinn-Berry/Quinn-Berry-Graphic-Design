@@ -1,7 +1,7 @@
 {
   "$comment": "SINGLE SOURCE OF TRUTH for the portfolio site. Every image that appears on the site MUST be listed here. Do not glob the images/ directory at build time - read this file instead. See CLAUDE.md for the full contract.",
   "schemaVersion": 1,
-  "generated": "2026-07-27",
+  "generated": "2026-08-07",
   "imageRoot": "images",
   "thumbRoot": "thumbs",
   "thumbExt": ".webp",
@@ -86,7 +86,8 @@
       "cover": "print-lax-stache-madness-01.png",
       "images": [
         "print-lax-stache-madness-01.png",
-        "print-lax-stache-madness-02.png"
+        "print-lax-stache-madness-02.png",
+        "print-lax-stache-madness-03.png"
       ]
     },
     {
@@ -96,7 +97,10 @@
       "order": 1,
       "url": "https://quinn-berry.github.io/Cooseing/",
       "blurb": "Athlete brand site for HYROX PRO athlete and online coach Max Mancuso.",
-      "images": []
+      "images": [
+        "web-cooseing-01.jpg"
+      ],
+      "cover": "web-cooseing-01.jpg"
     },
     {
       "id": "ada-anderson",
@@ -105,7 +109,10 @@
       "order": 2,
       "url": "https://adamay425.github.io/Ada-Anderson-/",
       "blurb": "Personal site for a customer success and account management professional.",
-      "images": []
+      "images": [
+        "web-ada-anderson-01.jpg"
+      ],
+      "cover": "web-ada-anderson-01.jpg"
     },
     {
       "id": "twigtree-site",
@@ -114,7 +121,10 @@
       "order": 3,
       "url": "https://twigtreevintage.com",
       "blurb": "Storefront for a small, curated vintage streetwear shop.",
-      "images": []
+      "images": [
+        "web-twigtree-site-01.jpg"
+      ],
+      "cover": "web-twigtree-site-01.jpg"
     },
     {
       "id": "ab-socials",
@@ -146,7 +156,8 @@
       "cover": "logo-run-the-race-01.png",
       "images": [
         "logo-run-the-race-01.png",
-        "logo-run-the-race-02.png"
+        "logo-run-the-race-02.png",
+        "logo-run-the-race-03.png"
       ]
     },
     {
@@ -156,7 +167,8 @@
       "order": 3,
       "cover": "logo-max-mancuso-monogram-01.png",
       "images": [
-        "logo-max-mancuso-monogram-01.png"
+        "logo-max-mancuso-monogram-01.png",
+        "logo-max-mancuso-monogram-02.png"
       ]
     },
     {
@@ -255,6 +267,17 @@
       "cover": "merch-maine-harvest-01.png",
       "images": [
         "merch-maine-harvest-01.png"
+      ]
+    },
+    {
+      "id": "woodberry",
+      "category": "logo",
+      "title": "Woodberry",
+      "order": 4,
+      "blurb": "Identity for a woodworking shop specializing in high-quality furniture and home goods.",
+      "cover": "logo-woodberry-01.png",
+      "images": [
+        "logo-woodberry-01.png"
       ]
     }
   ]

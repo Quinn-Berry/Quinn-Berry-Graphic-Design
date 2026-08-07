@@ -8,3 +8,12 @@ _inbox/*
 # from the site — rebuild it with scripts/make_pdf.sh rather than committing an
 # 8 MB binary that churns on every content change.
 *.pdf
+
+# Design-tool exports. These arrive as ~100 MB bundles carrying their own
+# duplicate copy of the artwork; the real assets belong in images/ via the
+# manifest. Keep the bundle locally, out of git.
+*.zip
+
+# Local tooling state, not part of the site
+.claude/
+.remember/
