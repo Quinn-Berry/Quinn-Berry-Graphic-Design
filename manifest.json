@@ -264,9 +264,20 @@
       "title": "Maine Harvest",
       "order": 4,
       "blurb": "Winning entry in the 2021 Maine Harvest design competition. 400 shirts made.",
-      "cover": "merch-maine-harvest-01.png",
+      "cover": "merch-maine-harvest-02.png",
       "images": [
+        "merch-maine-harvest-02.png",
         "merch-maine-harvest-01.png"
+      ]
+    },
+    {
+      "id": "juiced",
+      "category": "merchandise",
+      "title": "Juiced",
+      "order": 5,
+      "cover": "merch-juiced-01.png",
+      "images": [
+        "merch-juiced-01.png"
       ]
     },
     {

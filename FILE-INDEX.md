@@ -156,8 +156,14 @@ _Winning design in the Bates Class of 2025 t-shirt competition. 600 shirts made.
 
 _Winning entry in the 2021 Maine Harvest design competition. 400 shirts made._
 
-- `merch-maine-harvest-01.png`  — cover
+- `merch-maine-harvest-02.png`  — cover
+- `merch-maine-harvest-01.png`
+
+### Juiced  
+`id: juiced`
+
+- `merch-juiced-01.png`  — cover
 
 ---
 
-**29** images across **19** projects.
+**31** images across **20** projects.

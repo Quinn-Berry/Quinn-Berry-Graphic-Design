@@ -26,6 +26,9 @@
 
   --gutter: 176px;   /* left offset of every content block on desktop */
   --edge:   64px;    /* page edge padding */
+
+  --keyline:  #bdb6a7;  /* section-dividing rules, 1px */
+  --keyline-gap: 30px;  /* how far a rule stops short of meeting another */
 }
 
 * { box-sizing: border-box; }
@@ -41,7 +44,12 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-img { display: block; max-width: 100%; }
+/* height:auto matters now that images carry width/height attributes: the
+   attributes are there so the browser reserves the right box before decode,
+   but without this the attribute height wins over the scaled width and the
+   picture comes out stretched. Rules that set an explicit height (the mark
+   frame, the marquee bands, the toolset icons) are more specific and win. */
+img { display: block; max-width: 100%; height: auto; }
 
 a { color: var(--ink); text-decoration: none; }
 a:hover { color: var(--accent); }
@@ -88,7 +96,6 @@ a:hover { color: var(--accent); }
 
 .section { position: relative; padding: 130px 0 150px; }
 .section--hero {
-  min-height: 1010px;
   display: flex; flex-direction: column; justify-content: center;
   padding: 150px 0 120px;
 }
@@ -119,6 +126,119 @@ a:hover { color: var(--accent); }
 
 .section__body { padding-left: var(--gutter); padding-right: var(--edge); }
 
+/* --- interlocking blocks (header/hero + 01-03) ---------------------------
+   A 12-column grid with hand-placed rows. The narrow row tracks (2, 5, 7)
+   are the overlap bands: two blocks each span one of them, so their corners
+   sit on top of each other. The tall tracks are content. Gaps between the
+   blocks are deliberately uneven — 118 / 168 / 92 / 136 — so the descent
+   reads as a stagger rather than a rhythm. Stacking order runs
+   hero < 02 < 01 < 03, which is what makes 02's left edge tuck behind 01.
+   ----------------------------------------------------------------------- */
+
+.interlock {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows:
+    auto      /* 1  hero body                              */
+    118px     /* 2  hero bottom  ∩  01 top                 */
+    168px     /* 3  01 body                                */
+    auto      /* 4  01 and 02 both grow here               */
+    92px      /* 5  01 bottom    ∩  02 body                */
+    160px     /* 6  02 bottom    ∩  03 top                 */
+    auto;     /* 7  03 body                                */
+  padding: 0 var(--edge);
+}
+
+/* No outline: the stagger itself carries the composition. The paper
+   background stays — it matches the page, so it is invisible, but it keeps
+   an upper block opaque over a lower one where they lap. */
+.blk {
+  --gutter: 152px;
+  --edge: 40px;
+  background: var(--paper);
+  padding: 60px 0 68px;
+}
+.blk .rail   { top: 52px; }
+.blk .plate  { left: 56px; top: 300px; }
+.blk .swatches { top: 52px; }
+
+/* Block 02 is the one block whose left margin is covered: 01 laps it by a
+   whole grid column (~109px), which is wider than the 96px rail plus any
+   offset that would still fit inside the 152px gutter. So for this block
+   the rail is set as a horizontal line at the head of the content column,
+   where it clears the overlap. The plate is thin enough to slip into the
+   gap that is left between 01's edge and the copy. */
+.blk--type .rail {
+  left: var(--gutter); top: 46px; width: auto;
+  display: flex; align-items: center; gap: 15px;
+}
+.blk--type .rail__no    { font-size: 38px; line-height: 1; }
+.blk--type .rail__of    { margin-top: 0; }
+.blk--type .rail__dash  { width: 30px; margin: 0; }
+.blk--type .rail__label { line-height: 1; }
+.blk--type .plate { left: 122px; }
+.blk--type .section__body { padding-top: 64px; }
+
+.blk--hero   { grid-column: 2 / 13; grid-row: 1 / 3; z-index: 1; }
+.blk--mark   { grid-column: 1 / 8;  grid-row: 2 / 6; z-index: 3; }
+.blk--type   { grid-column: 7 / 13; grid-row: 4 / 7; z-index: 2; }
+.blk--wide   { grid-column: 1 / 12; grid-row: 6 / 8; z-index: 4; }
+
+/* Bottom padding on each block has to clear the overlap band beneath it,
+   or the block below simply covers the last line of copy. 01 and 02 are
+   handed more height than their content needs — they share row 4 with each
+   other — so their contents centre in the space rather than hang at the top. */
+.blk--hero.section--hero { padding: 104px 0 150px; }
+.blk--mark {
+  display: flex; flex-direction: column; justify-content: center;
+  padding-bottom: 124px;
+}
+.blk--type { padding-bottom: 196px; }
+
+/* --- dividing rules ------------------------------------------------------
+   Hairlines at the weight the boundary boxes used, but only on the edges
+   that actually divide one section from the next — a rule per division, not
+   a box per block. Where a block carries both a horizontal and a vertical
+   rule they never meet: each stops --keyline-gap short of the corner it
+   would otherwise close. That gap is the whole point; it is what keeps the
+   lines reading as separators rather than as a reinstated outline.
+
+   Which edge does the dividing:
+     hero | 02   the hero's bottom edge, right of where 01 laps it
+     hero | 01   01's top edge
+     01   | 02   01's right edge, vertical
+     02   | 03   03's top edge
+   02 draws nothing of its own — it is bounded on every side by its
+   neighbours' rules.
+   ----------------------------------------------------------------------- */
+
+.blk--hero::after,
+.blk--mark::before, .blk--mark::after,
+.blk--wide::before {
+  content: ""; position: absolute; background: var(--keyline);
+}
+
+/* Starts one grid column past the hero's left edge — 6/11 of the hero's
+   width is exactly block 01's right edge — plus the gap, so it never runs
+   into 01's vertical rule below it. */
+.blk--hero::after {
+  height: 1px; bottom: 0; right: 0;
+  left: calc(54.5455% + var(--keyline-gap));
+}
+
+.blk--mark::before { height: 1px; top: 0; left: 0; right: var(--keyline-gap); }
+.blk--mark::after  { width: 1px; right: 0; top: 150px; bottom: var(--keyline-gap); }
+
+.blk--wide::before { height: 1px; top: 0; left: 0; right: 0; }
+
+/* The stacked bands below the interlock divide horizontally only — they run
+   the full measure, so there is nothing sitting beside anything for a
+   vertical to separate. */
+main.page > .section::before {
+  content: ""; position: absolute; background: var(--keyline);
+  height: 1px; top: 0; left: var(--edge); right: var(--edge);
+}
+
 /* content blocks carry crop marks at their four corners */
 .block { position: relative; width: 100%; }
 .block--520  { max-width: 520px; }
@@ -141,6 +261,7 @@ a:hover { color: var(--accent); }
   font-family: var(--serif); font-weight: 400; font-size: 46px;
   line-height: 1; letter-spacing: -0.018em; margin: 0;
 }
+.h2--long { font-size: 40px; line-height: 1.08; max-width: 460px; text-wrap: balance; }
 .lede {
   font-size: 15.5px; line-height: 1.62; margin: 16px 0 0;
   color: var(--body); max-width: 440px; text-wrap: pretty;
@@ -165,13 +286,14 @@ a:hover { color: var(--accent); }
 .hero { display: flex; align-items: flex-start; gap: 64px; padding: 0 128px 0 152px; }
 .hero__intro { flex: 0 1 auto; min-width: 0; }
 .hero h1 {
-  font-family: var(--serif); font-weight: 400; font-size: 104px;
-  line-height: 0.90; letter-spacing: -0.022em; margin: 0;
+  font-family: var(--serif); font-weight: 400; font-size: 76px;
+  line-height: 0.94; letter-spacing: -0.02em; margin: 0;
 }
 .hero__lede {
-  font-size: 23px; line-height: 1.45; letter-spacing: -0.005em;
-  margin: 30px 0 0; max-width: 520px; color: var(--ink-soft); text-wrap: pretty;
+  font-size: 21px; line-height: 1.5; letter-spacing: -0.005em;
+  margin: 26px 0 0; max-width: 520px; color: var(--ink-soft); text-wrap: pretty;
 }
+.hero__lede strong { font-weight: 500; color: var(--ink); }
 
 .toolset { flex: 0 0 400px; padding-top: 8px; }
 .toolset__label {
@@ -190,16 +312,35 @@ a:hover { color: var(--accent); }
 .hero__cue span { font-family: var(--serif); font-size: 29px; letter-spacing: -0.012em; color: var(--ink-soft); }
 
 /* logo carousel */
+/* The carousel runs at 150% of its original size. Block 01 shares a grid
+   row with 02 and 02 is the taller of the two, so the block was already
+   carrying slack — the bigger slide and blurb fill that space instead of
+   pushing the outline down. Nothing here changes the block's height. */
 .marks { display: flex; justify-content: center; margin-top: 44px; }
-.marks__frame { position: relative; width: 337px; max-width: 100%; display: flex; flex-direction: column; align-items: center; }
+.marks__frame { position: relative; width: 506px; max-width: 100%; display: flex; flex-direction: column; align-items: center; }
 .marks__window { width: 100%; overflow: hidden; margin-top: 54px; }
 .marks__track { display: flex; will-change: transform; transition: transform 900ms cubic-bezier(0.62, 0.02, 0.2, 1); }
 .marks__track.is-instant { transition: none; }
 .marks__cell { flex: 0 0 100%; width: 100%; display: flex; flex-direction: column; align-items: center; }
-.marks__art { height: 236px; display: flex; align-items: center; justify-content: center; }
-.marks__art img { width: auto; max-width: 250px; }
-.marks__cap { height: 100px; padding: 0 18px; }
-.marks__cap p { margin: 14px 0 0; font-size: 14.5px; line-height: 1.55; color: var(--body); text-align: center; text-wrap: pretty; }
+
+/* The art frame is a fixed box with consistent padding on all four sides.
+   site.js sets an optical height on each mark to even out their ratios, but
+   max-height/max-width keep that height inside the padded box, and
+   object-fit: contain guarantees nothing is ever cropped — the tall marks
+   (Twigtree is ~1:2) simply scale down to fit. */
+.marks__art {
+  height: 396px; padding: 20px 28px;
+  display: flex; align-items: center; justify-content: center;
+}
+.marks__art img {
+  width: auto; max-width: 100%; max-height: 100%;
+  object-fit: contain;
+}
+/* min-height, not height: the cells sit in a flex row so they equalise
+   anyway, and a hard height would let the longest blurb spill into the meta
+   rule underneath. */
+.marks__cap { min-height: 140px; padding: 0 24px; }
+.marks__cap p { margin: 20px 0 0; font-size: 19px; line-height: 1.5; color: var(--body); text-align: center; text-wrap: pretty; }
 .marks__meta {
   display: flex; justify-content: space-between; width: 100%;
   font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.2em;
@@ -210,42 +351,119 @@ a:hover { color: var(--accent); }
 /* --- 02 type system ------------------------------------------------------ */
 
 .specimen { font-family: var(--serif); font-size: 172px; line-height: 0.86; letter-spacing: -0.03em; margin: 52px 0 0; }
-.faces { display: flex; margin-top: 44px; border-top: 1px solid var(--rule); padding-top: 14px; }
-.faces > div { flex: 1; }
+.faces { margin-top: 44px; border-top: 1px solid var(--rule); padding-top: 14px; }
 .faces__k { font-family: var(--mono); font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted-2); margin-bottom: 8px; }
-.faces__display { font-family: var(--serif); font-size: 24px; }
-.faces__text { font-size: 20px; font-weight: 400; }
+.faces__k--name { margin: 14px 0 0; color: var(--muted); }
+
+/* Typewriter specimen. The line is a fixed-height box so the block does not
+   reflow as characters are added and removed; site.js swaps the face class
+   and the name label together at the start of each cycle. */
+.typer {
+  margin: 0; min-height: 76px;
+  font-size: 26px; line-height: 1.3; letter-spacing: -0.005em;
+  color: var(--ink-soft); word-break: break-word;
+}
+.typer.is-serif { font-family: var(--serif); font-weight: 400; }
+.typer.is-sans  { font-family: var(--sans);  font-weight: 400; }
+.typer.is-mono  { font-family: var(--mono);  font-weight: 400; font-size: 21px; }
+
+.typer__caret {
+  display: inline-block; width: 2px; height: 0.94em;
+  margin-left: 2px; vertical-align: -0.13em;
+  background: var(--accent);
+  animation: caret-blink 1.06s steps(1, end) infinite;
+}
+@keyframes caret-blink { 0%, 49% { opacity: 1 } 50%, 100% { opacity: 0 } }
 
 .palette { display: grid; grid-template-columns: repeat(5, 1fr); margin-top: 44px; }
 .palette i { display: block; height: 86px; }
 .palette span { display: block; font-family: var(--mono); font-size: 8.5px; letter-spacing: 0.1em; color: var(--muted); margin-top: 8px; }
 .palette__note { font-family: var(--mono); font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted-2); margin-top: 14px; }
 
-/* --- 03 poster ----------------------------------------------------------- */
+/* --- 03 campaigns -------------------------------------------------------- */
+
+/* Each case study is its own row across the full measure — note on the
+   left, the work filling the rest — so the two clients read in sequence
+   rather than competing for half a column each. */
+/* The art is capped rather than left to fill the measure — at full width
+   the posters ran ~460px tall each and the section swallowed a screen and a
+   half. The cap is 347px (520 / 1.5); the spacing around the cases came
+   down by the same factor so the section shrinks with the pictures rather
+   than leaving holes where they used to be. Type size is untouched. */
+.case { display: grid; grid-template-columns: 300px 1fr; gap: 48px; align-items: start; }
+.case + .case {
+  margin-top: 32px; padding-top: 30px; border-top: 1px solid var(--rule-soft);
+}
+.case__text { padding-top: 2px; }
+.case__art { min-width: 0; max-width: 347px; }
+.case__art img { width: 100%; }   /* the work fills its column, not its intrinsic width */
 
 .client {
-  font-family: var(--mono); font-size: 9px; letter-spacing: 0.2em;
-  text-transform: uppercase; color: var(--muted-2); text-align: center;
+  font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--muted-2);
   padding-bottom: 12px; border-bottom: 1px solid var(--rule-soft);
 }
 .client__note {
-  font-size: 14.5px; line-height: 1.6; margin: 20px auto 34px;
-  color: var(--body); text-align: center; max-width: 330px; text-wrap: pretty;
+  font-size: 16.5px; line-height: 1.62; margin: 22px 0 0;
+  color: var(--body); text-wrap: pretty;
 }
 .client__note strong { font-weight: 600; color: var(--ink); }
 
-/* --- 04 merch ------------------------------------------------------------ */
+/* --- marquee (04 merch, 05 feed) -----------------------------------------
+   One band, one sample tall. The track holds the item set twice and travels
+   exactly -50%, so the end frame is pixel-identical to the start and the
+   loop has no seam. Motion is a CSS transform animation — nothing per-frame
+   in JS. The edge fade is a mask on the container, so it costs one
+   composited layer instead of an opacity animation per item.
 
-.merch-cell { width: 100%; }
-.merch-cell--330 { max-width: 330px; }
-.merch-cell--300 { max-width: 300px; }
+   One set must be at least as wide as the band or a hole opens up at the
+   wrap; at the current item heights both sets are ~1500px+ against a
+   1200px band, so there is headroom.
 
-/* --- 05 feed ------------------------------------------------------------- */
+   Two things keep the loop continuous rather than snapping:
 
-.feed__head { display: flex; justify-content: space-between; align-items: flex-end; gap: 32px; flex-wrap: wrap; }
-.feed__ratio { text-align: right; padding-bottom: 4px; }
-.feed__ratio b { display: block; font-family: var(--serif); font-weight: 400; font-size: 104px; line-height: 0.78; letter-spacing: -0.03em; color: var(--accent); }
-.feed__ratio span { display: block; font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-top: 14px; }
+   1. Every item carries width/height attributes, so the browser knows each
+      image's ratio before it decodes. Without them a lazy image measures 0
+      wide until it loads, the set grows underneath the animation, and -50%
+      stops pointing at the seam — which reads as a jump back to the start.
+   2. The duration is set per band, proportional to that band's set width,
+      so both marquees travel at roughly the same pixels per second even
+      though one set is longer than the other.
+   ----------------------------------------------------------------------- */
+
+.marquee {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 16%, #000 84%, transparent 100%);
+          mask-image: linear-gradient(to right, transparent 0, #000 16%, #000 84%, transparent 100%);
+}
+.marquee__track {
+  display: flex; width: max-content;
+  will-change: transform;
+  animation-duration: var(--travel, 42s);
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+/* ~48px per second in both bands: 2418px of merch, 1521px of feed. */
+.marquee--left  .marquee__track { animation-name: marquee-left;  --travel: 50s; }
+.marquee--right .marquee__track { animation-name: marquee-right; --travel: 32s; }
+
+.marquee__set { display: flex; align-items: flex-end; gap: 48px; padding-right: 48px; }
+.marquee__item { margin: 0; flex: 0 0 auto; }
+.marquee__art { height: 300px; display: flex; align-items: flex-end; }
+.marquee__art img {
+  height: 100%; width: auto; max-width: 440px;
+  object-fit: contain; object-position: bottom;
+}
+.marquee .caption { margin-top: 14px; }
+
+@keyframes marquee-left {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-50%, 0, 0); }
+}
+@keyframes marquee-right {
+  from { transform: translate3d(-50%, 0, 0); }
+  to   { transform: translate3d(0, 0, 0); }
+}
 
 /* --- 06 website ---------------------------------------------------------- */
 
@@ -268,7 +486,13 @@ a:hover { color: var(--accent); }
 
 /* --- colophon ------------------------------------------------------------ */
 
-.colophon { padding: 110px var(--edge) 90px; border-top: 1px solid var(--rule); }
+/* Last division on the page — same inset hairline as every other. */
+.colophon { padding: 110px var(--edge) 90px; }
+.colophon::before {
+  content: ""; position: absolute; top: 0;
+  left: var(--edge); right: var(--edge); height: 1px;
+  background: var(--keyline);
+}
 .colophon__grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 48px; align-items: start; }
 .colophon__cta { font-family: var(--serif); font-size: 44px; line-height: 1.02; letter-spacing: -0.018em; }
 .colophon__links { display: flex; gap: 22px; margin-top: 30px; font-size: 14.5px; flex-wrap: wrap; }
@@ -289,12 +513,26 @@ a:hover { color: var(--accent); }
   .block > .crop::before, .block > .crop::after { display: none; }
 
   .section { padding: 96px 0 110px; }
-  .section--hero { min-height: 0; padding: 132px 0 96px; }
+  .section--hero { padding: 132px 0 96px; }
   .section__body { padding-right: var(--gutter); }
 
   .hero { padding: 0 var(--gutter); gap: 48px; }
-  .hero h1 { font-size: clamp(56px, 8vw, 104px); }
+  .hero h1 { font-size: clamp(46px, 6vw, 76px); }
   .toolset { flex: 0 0 340px; }
+
+  /* Rails are gone at this width, so the blocks give their measure back to
+     the content. The grid placement and the overlaps still hold. */
+  /* The left gutter has to stay wider than one grid column, because one
+     column is exactly how far 01 overlaps 02 — anything narrower and 01's
+     opaque panel clips the first characters of 02's copy. */
+  .blk { --gutter: clamp(88px, 9vw, 132px); --edge: clamp(20px, 2.5vw, 36px); padding: 48px 0 56px; }
+  .interlock { grid-template-rows: auto 88px 120px auto 68px 116px auto; }
+  .blk--hero.section--hero { padding: 84px 0 112px; }
+  .blk--mark { padding-bottom: 96px; }
+  .blk--type { padding-bottom: 148px; }
+  /* The overlap band shrinks to 88px here, so 01's vertical starts higher
+     and still clears the hero's rule above it. */
+  .blk--mark::after { top: 112px; }
 }
 
 @media (max-width: 980px) {
@@ -303,8 +541,30 @@ a:hover { color: var(--accent); }
   .hero__cue { margin-top: 72px; }
 
   .specimen { font-size: clamp(96px, 20vw, 172px); }
-  .feed__ratio { text-align: left; }
-  .feed__ratio b { font-size: clamp(64px, 12vw, 104px); }
+}
+
+/* Below 900px the interlock unwinds completely: one column, no overlaps,
+   no outlines — the same stacked-band rhythm as sections 04-06. */
+@media (max-width: 900px) {
+  .interlock { display: block; padding: 0; }
+  .blk {
+    --gutter: clamp(24px, 6vw, 96px);
+    --edge: clamp(24px, 5vw, 64px);
+    background: none; z-index: auto;
+    padding: 96px 0 110px;
+  }
+  .blk--hero.section--hero { padding: 132px 0 96px; }
+  .h2--long { font-size: clamp(30px, 6.5vw, 40px); max-width: 100%; }
+
+  /* Nothing is beside anything any more, so the stepped rules go and every
+     block takes the same top rule the stacked bands use. */
+  .blk--hero::after, .blk--mark::before, .blk--mark::after,
+  .blk--wide::before { display: none; }
+  .blk + .blk::before {
+    content: ""; position: absolute; background: var(--keyline);
+    height: 1px; top: 0; left: var(--edge); right: var(--edge);
+    display: block;
+  }
 }
 
 @media (max-width: 820px) {
@@ -319,7 +579,7 @@ a:hover { color: var(--accent); }
   }
   .grid--2-tight { gap: 18px; }          /* poster pairs stay side by side */
 
-  .merch-cell--330, .merch-cell--300 { max-width: 420px; }
+  .case { grid-template-columns: 1fr; gap: 32px; }
 
   .palette { grid-template-columns: repeat(5, 1fr); }
   .palette i { height: 56px; }
@@ -332,15 +592,42 @@ a:hover { color: var(--accent); }
   .nav__inner { padding: 18px var(--edge); }
   .nav__kicker { display: none; }
 
-  .hero__lede { font-size: 19px; }
-  .marks__art { height: 190px; }
-  .marks__art img { max-width: 200px; }
+  .hero__lede { font-size: 18px; }
+  .marks__art { height: 300px; padding: 14px 18px; }
+  .marks__cap { min-height: 120px; padding: 0 8px; }
+  .marks__cap p { font-size: 16px; margin-top: 16px; }
 
-  .faces { flex-direction: column; gap: 22px; }
+  .typer { font-size: 21px; min-height: 84px; }
+  .typer.is-mono { font-size: 17px; }
+
+  .marquee__art { height: 210px; }
+  .marquee__art img { max-width: 300px; }
+  .marquee__set { gap: 32px; padding-right: 32px; }
+
   .colophon__grid { grid-template-columns: 1fr; }
 }
+
+/* ===========================================================================
+   Reduced motion. Everything that moves on its own stops and resolves to a
+   readable static state — not a frozen mid-animation frame. The marquees
+   drop the duplicate set and wrap onto as many lines as they need; the
+   typewriter shows its sample complete, with no caret pulsing beside it.
+   site.js also skips starting the carousel and the typewriter under this
+   query, so the JS and the CSS agree.
+   ========================================================================= */
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .marks__track { transition: none; }
+
+  .marquee { overflow: visible; -webkit-mask-image: none; mask-image: none; }
+  /* Matches the specificity of the rules that name the animations, so the
+     track is genuinely un-animated rather than parked mid-travel. */
+  .marquee--left .marquee__track,
+  .marquee--right .marquee__track { animation: none; }
+  .marquee__track { width: 100%; }
+  .marquee__set { flex-wrap: wrap; row-gap: 40px; padding-right: 0; }
+  .marquee__set[aria-hidden="true"] { display: none; }
+
+  .typer__caret { animation: none; opacity: 1; }
 }

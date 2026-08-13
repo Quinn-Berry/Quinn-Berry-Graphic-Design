@@ -37,6 +37,11 @@ THUMB_EXT = ".webp"
 SOURCE_EXTS = {".png", ".jpg", ".jpeg"}
 THUMB_QUALITY = 82
 TALL_RATIO = 1.6   # images taller than this are top-cropped for the thumb
+# ...but only in the one category the rule was written for. A full-page web
+# capture is 1:8 and unreadable when scaled whole, so the top is what gets
+# kept. Everything else is source art whose proportions are the design:
+# cropping a 1:2 logo to 1.6:1 silently cuts the bottom off it.
+TALL_CROP_DIRS = {"02-web-design"}
 FORCE = "--force" in sys.argv
 
 
@@ -69,7 +74,8 @@ def main() -> int:
             # Very tall images (full-page web captures) become unreadable
             # slivers if scaled whole. Crop the top instead - that's the part
             # a viewer recognises. The full image is still in images/.
-            if im.height / im.width > TALL_RATIO:
+            in_capture_dir = rel.parts[0] in TALL_CROP_DIRS if rel.parts[:-1] else False
+            if in_capture_dir and im.height / im.width > TALL_RATIO:
                 im = im.crop((0, 0, im.width, round(im.width * TALL_RATIO)))
 
             if im.width > THUMB_WIDTH:

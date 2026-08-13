@@ -17,7 +17,7 @@
 (function () {
   "use strict";
 
-  var HOLD = 3400;   // ms each mark rests
+  var HOLD = 4900;   // ms each mark rests
   var SLIDE = 900;   // ms of travel, must match --marks transition in site.css
 
   // r = intrinsic width / height, used to normalise optical size across ratios
@@ -53,7 +53,7 @@
   var countEl = document.getElementById("marks-count");
   if (!track || !nameEl || !countEl) return;
 
-  var K = 145;
+  var K = 218;   // optical size constant — 150% of the original 145
   function cell(m, index, total, isClone) {
     var wrap = document.createElement("div");
     wrap.className = "marks__cell";
@@ -67,6 +67,10 @@
     img.alt = isClone ? "" : m.name + " logo";
     img.loading = index === 0 ? "eager" : "lazy";
     img.decoding = "async";
+    // Optical size: taller-than-wide marks get a little more height so they
+    // read at the same weight as the wide ones. .marks__art caps this with
+    // max-height/max-width, so a very tall mark scales down rather than
+    // overflowing its frame — see site.css.
     img.style.height = Math.round(K / Math.pow(m.r, 0.42)) + "px";
     art.appendChild(img);
 
@@ -135,4 +139,94 @@
       if (document.hidden) stop(); else start();
     });
   }
+})();
+
+/* ---------------------------------------------------------------------------
+   Typewriter specimen for section 02.
+
+   The sample sentence types out a character at a time in one face, rests,
+   deletes itself, and retypes in the next — the same line of copy read three
+   ways, which is the point the section is making. The face class and the
+   name label are swapped together at the top of each cycle, so the label
+   never describes a face that is no longer on screen.
+
+   The three faces are the site's own: the display serif, the text sans, and
+   IBM Plex Mono, which is already loaded in the page head and already
+   credited in the colophon. The mono is the contrast — it is the only one of
+   the three that is neither a serif text face nor a grotesque.
+
+   The markup ships with the sample already in place and the first face named,
+   so with JS off, or under reduced motion, the specimen is simply static.
+--------------------------------------------------------------------------- */
+(function () {
+  "use strict";
+
+  var SAMPLE = "Building brand image through design.";
+
+  var TYPE = 62;     // ms per character typed
+  var ERASE = 28;    // ms per character deleted — always quicker than typing
+  var REST = 2600;   // ms the finished line holds
+  var CLEAR = 620;   // ms of empty line before the next face starts
+
+  var FACES = [
+    { name: "Libre Caslon Display", cls: "is-serif" },
+    { name: "Libre Franklin",       cls: "is-sans"  },
+    { name: "IBM Plex Mono",        cls: "is-mono"  }
+  ];
+
+  var box = document.getElementById("typer");
+  var line = document.getElementById("typer-line");
+  var nameEl = document.getElementById("typer-name");
+  if (!box || !line || !nameEl) return;
+
+  var f = 0;
+  var timer = null;
+
+  function face(index) {
+    FACES.forEach(function (spec) { box.classList.remove(spec.cls); });
+    box.classList.add(FACES[index].cls);
+    nameEl.textContent = FACES[index].name;
+  }
+
+  function at(ms, fn) { timer = window.setTimeout(fn, ms); }
+
+  function type(i) {
+    line.textContent = SAMPLE.slice(0, i);
+    if (i < SAMPLE.length) { at(TYPE, function () { type(i + 1); }); }
+    else { at(REST, function () { erase(SAMPLE.length); }); }
+  }
+
+  function erase(i) {
+    line.textContent = SAMPLE.slice(0, i);
+    if (i > 0) { at(ERASE, function () { erase(i - 1); }); }
+    else {
+      at(CLEAR, function () {
+        f = (f + 1) % FACES.length;
+        face(f);
+        type(0);
+      });
+    }
+  }
+
+  function stop() {
+    if (timer !== null) { window.clearTimeout(timer); timer = null; }
+  }
+
+  face(0);
+
+  var motionOK = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (!motionOK) return;   // leave the sample sitting there, fully typed
+
+  line.textContent = "";
+  type(0);
+
+  // Nothing to animate in a background tab; pick up from the top on return.
+  document.addEventListener("visibilitychange", function () {
+    if (document.hidden) {
+      stop();
+    } else if (timer === null) {
+      line.textContent = "";
+      type(0);
+    }
+  });
 })();

@@ -39,28 +39,22 @@
 
 <main class="page" id="top">
 
-  <!-- ===================== 01 MARK ===================== -->
-  <section class="section section--hero" aria-labelledby="s1">
-    <div class="rail" aria-hidden="true">
-      <div class="rail__no">01</div>
-      <div class="rail__of">/ 06</div>
-      <div class="rail__dash"></div>
-      <div class="rail__label">Mark</div>
-    </div>
-    <div class="plate" aria-hidden="true">Twigtree · Woodberry · Run the Race · Max Mancuso · Plate 01-A</div>
-    <div class="swatches" aria-hidden="true">
-      <i style="background:#1a1917"></i>
-      <i style="background:#0e4a55"></i>
-      <i style="background:#1a5578"></i>
-      <i style="background:#f7941e"></i>
-      <i style="background:#d7ab7f"></i>
-      <span class="swatches__label">5-swatch</span>
-    </div>
+  <!-- ===========================================================
+       Interlocking block layout: the header/hero and the first three
+       numbered sections are placed by hand on a 12-column grid and share
+       row tracks, so the blocks overlap at their corners and the eye steps
+       down the page diagonally. The interlock is positional — whichever
+       sections sit in slots 01-03 get it. Below 900px it unwinds to a
+       plain stack.
+       =========================================================== -->
+  <div class="interlock">
 
+  <!-- ===================== HEADER + HERO ===================== -->
+  <section class="section section--hero blk blk--hero" aria-labelledby="s1">
     <div class="hero">
       <div class="hero__intro">
         <h1 id="s1">Quinn Berry</h1>
-        <p class="hero__lede">Building brand image through design. Graphic designer in Cambridge, Massachusetts — brand, web, and content strategy underneath it.</p>
+        <p class="hero__lede">Building brand image through design. Graphic designer in Cambridge, Massachusetts — brand, web, and content strategy underneath it. <strong>Open to full-time and freelance work.</strong></p>
       </div>
 
       <aside class="toolset" aria-label="Software experience">
@@ -82,6 +76,25 @@
         </div>
       </aside>
     </div>
+  </section>
+
+  <!-- ===================== 01 MARK ===================== -->
+  <section class="section blk blk--mark" aria-label="Mark">
+    <div class="rail" aria-hidden="true">
+      <div class="rail__no">01</div>
+      <div class="rail__of">/ 06</div>
+      <div class="rail__dash"></div>
+      <div class="rail__label">Mark</div>
+    </div>
+    <div class="plate" aria-hidden="true">Twigtree · Woodberry · Run the Race · Max Mancuso · Plate 01-A</div>
+    <div class="swatches" aria-hidden="true">
+      <i style="background:#1a1917"></i>
+      <i style="background:#0e4a55"></i>
+      <i style="background:#1a5578"></i>
+      <i style="background:#f7941e"></i>
+      <i style="background:#d7ab7f"></i>
+      <span class="swatches__label">5-swatch</span>
+    </div>
 
     <div class="hero__cue"><span>Let's start with a logo.</span></div>
 
@@ -99,12 +112,12 @@
   </section>
 
   <!-- ===================== 02 TYPE SYSTEM ===================== -->
-  <section class="section" aria-labelledby="s2">
+  <section class="section blk blk--type" aria-labelledby="s2">
     <div class="rail" aria-hidden="true">
       <div class="rail__no">02</div>
       <div class="rail__of">/ 06</div>
       <div class="rail__dash"></div>
-      <div class="rail__label">Type<br>system</div>
+      <div class="rail__label">Type system</div>
     </div>
     <div class="plate" aria-hidden="true">Quinn Berry · Palette + specimen · Plate 02-A · 5/C</div>
     <div class="swatches" aria-hidden="true">
@@ -123,14 +136,11 @@
         <div class="specimen">Aa</div>
 
         <div class="faces">
-          <div>
-            <div class="faces__k">Display</div>
-            <div class="faces__display">Libre Caslon</div>
-          </div>
-          <div>
-            <div class="faces__k">Text</div>
-            <div class="faces__text">Libre Franklin</div>
-          </div>
+          <div class="faces__k">Specimen</div>
+          <p class="typer" id="typer">
+            <span class="typer__line" id="typer-line">Building brand image through design.</span><span class="typer__caret" aria-hidden="true"></span>
+          </p>
+          <div class="faces__k faces__k--name" id="typer-name">Libre Caslon Display</div>
         </div>
 
         <div class="palette">
@@ -145,72 +155,15 @@
     </div>
   </section>
 
-  <!-- ===================== 03 POSTER ===================== -->
-  <section class="section" aria-labelledby="s3">
+  <!-- ===================== 03 MERCHANDISE ===================== -->
+  <section class="section blk blk--wide" aria-labelledby="s3">
     <div class="rail" aria-hidden="true">
       <div class="rail__no">03</div>
       <div class="rail__of">/ 06</div>
       <div class="rail__dash"></div>
-      <div class="rail__label">Poster</div>
-    </div>
-    <div class="plate" aria-hidden="true">HEADstrong · BHA × onX · 2024 · Plate 03-A · 4/C uncoated</div>
-    <div class="swatches" aria-hidden="true">
-      <i style="background:#dec79f"></i>
-      <i style="background:#88b847"></i>
-      <i style="background:#1b649d"></i>
-      <i style="background:#8f2537"></i>
-      <i style="background:#211e1a"></i>
-    </div>
-
-    <div class="section__body">
-      <div class="block block--800"><span class="crop" aria-hidden="true"></span>
-        <h2 class="h2" id="s3">Poster</h2>
-        <p class="lede" style="max-width:430px">Poster series and campaign graphics for causes, events, and fundraisers.</p>
-
-        <div class="grid grid--2-wide" style="margin-top:64px">
-          <div>
-            <div class="client">HEADstrong Foundation</div>
-            <p class="client__note">Poster series for <strong>Lax Stache Madness</strong>, an annual lacrosse fundraiser for families living with cancer. The campaign <strong>raised $70,000</strong>.</p>
-            <div class="grid grid--2-tight">
-              <div>
-                <img src="thumbs/01-print-editorial/print-lax-stache-madness-01.webp" alt="Lax Stache Madness poster" loading="lazy" decoding="async">
-                <div class="caption caption--sm"><span>Mustache</span><span>03-1</span></div>
-              </div>
-              <div>
-                <img src="thumbs/01-print-editorial/print-lax-stache-madness-03.webp" alt="Lax Stache Madness donation board, Bates Men's Lacrosse and the HEADstrong Foundation" loading="lazy" decoding="async">
-                <div class="caption caption--sm"><span>Donate</span><span>03-2</span></div>
-              </div>
-            </div>
-          </div>
-
-          <div>
-            <div class="client">Backcountry Hunters &amp; Anglers</div>
-            <p class="client__note">Print and social graphics for <strong>Public Lands Pint Night</strong>, BHA's conservation fundraiser in <strong>collaboration with onX</strong>.</p>
-            <div class="grid grid--2-tight">
-              <div>
-                <img src="thumbs/01-print-editorial/print-public-lands-pint-night-02.webp" alt="Public Lands Pint Night poster" loading="lazy" decoding="async">
-                <div class="caption caption--sm"><span>Pint Night</span><span>03-3</span></div>
-              </div>
-              <div>
-                <img src="thumbs/01-print-editorial/print-public-lands-pint-night-04.webp" alt="Public Lands Pint Night, story cut" loading="lazy" decoding="async">
-                <div class="caption caption--sm"><span>Story cut</span><span>03-4</span></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===================== 04 MERCH ===================== -->
-  <section class="section" aria-labelledby="s4">
-    <div class="rail" aria-hidden="true">
-      <div class="rail__no">04</div>
-      <div class="rail__of">/ 06</div>
-      <div class="rail__dash"></div>
       <div class="rail__label">Merch</div>
     </div>
-    <div class="plate" aria-hidden="true">Fly Fishers Intl · Bates '25 · Okay Buddy · Plate 04-A · Screen, 4/C</div>
+    <div class="plate" aria-hidden="true">Fly Fishers Intl · Bates '25 · Maine Harvest · Juiced · Okay Buddy · Plate 03-A · Screen, 4/C</div>
     <div class="swatches" aria-hidden="true">
       <i style="background:#183d4e"></i>
       <i style="background:#b25b28"></i>
@@ -220,44 +173,85 @@
     </div>
 
     <div class="section__body">
-      <div class="block block--900"><span class="crop" aria-hidden="true"></span>
-        <h2 class="h2" id="s4">Merch</h2>
-        <p class="lede">Apparel graphics and merch drops, including two winning competition designs.</p>
+      <div class="block block--1000"><span class="crop" aria-hidden="true"></span>
+        <h2 class="h2 h2--long" id="s3">Shipped Merchandise Designs</h2>
+        <p class="lede">Apparel graphics and merch drops, including two winning competition designs. Over 1,000 shirts produced across projects.</p>
 
-        <div class="grid grid--2" style="margin-top:56px">
-          <div class="merch-cell merch-cell--330">
-            <img src="thumbs/05-merchandise/merch-all-fish-all-waters-01.webp" alt="All Fish All Waters fly, Fly Fishers International" loading="lazy" decoding="async">
-            <div class="caption"><span>Fly Fishers International</span><span>04-1</span></div>
-          </div>
-          <div class="merch-cell merch-cell--300">
-            <img src="thumbs/05-merchandise/merch-bates-class-of-2025-01.webp" alt="Bates Class of 2025" loading="lazy" decoding="async">
-            <div class="caption"><span>Bates '25 · Qty 600</span><span>04-2</span></div>
-          </div>
-        </div>
-
-        <div class="grid grid--2" style="margin-top:60px">
-          <div class="merch-cell merch-cell--330">
-            <img src="thumbs/05-merchandise/merch-okay-buddy-02.webp" alt="Okay Buddy" loading="lazy" decoding="async">
-            <div class="caption"><span>Okay Buddy · Streetwear</span><span>04-3</span></div>
-          </div>
-          <div class="merch-cell merch-cell--330">
-            <img src="thumbs/05-merchandise/merch-okay-buddy-01.webp" alt="Okay Buddy wordmark" loading="lazy" decoding="async">
-            <div class="caption"><span>Wordmark, knockout</span><span>04-4</span></div>
+        <!-- Marquee: the item set is written twice and the track travels
+             exactly -50%, so the loop returns to an identical frame and
+             there is no seam. The second set is decoration for a11y. -->
+        <div class="marquee marquee--left" style="margin-top:56px">
+          <div class="marquee__track">
+            <div class="marquee__set">
+              <figure class="marquee__item">
+                <div class="marquee__art"><img src="thumbs/05-merchandise/merch-all-fish-all-waters-01.webp" alt="All Fish All Waters fly, Fly Fishers International" width="600" height="422" loading="lazy" decoding="async"></div>
+                <figcaption class="caption"><span>Fly Fishers International</span><span>03-1</span></figcaption>
+              </figure>
+              <figure class="marquee__item">
+                <div class="marquee__art"><img src="thumbs/05-merchandise/merch-bates-class-of-2025-01.webp" alt="Bates Class of 2025" width="600" height="757" loading="lazy" decoding="async"></div>
+                <figcaption class="caption"><span>Bates '25 &middot; Qty 600</span><span>03-2</span></figcaption>
+              </figure>
+              <figure class="marquee__item">
+                <div class="marquee__art"><img src="thumbs/05-merchandise/merch-maine-harvest-02.webp" alt="Maine Harvest" width="600" height="492" loading="lazy" decoding="async"></div>
+                <figcaption class="caption"><span>Maine Harvest &middot; Qty 400</span><span>03-3</span></figcaption>
+              </figure>
+              <figure class="marquee__item">
+                <div class="marquee__art"><img src="thumbs/05-merchandise/merch-juiced-01.webp" alt="Juiced" width="600" height="734" loading="lazy" decoding="async"></div>
+                <figcaption class="caption"><span>Juiced</span><span>03-4</span></figcaption>
+              </figure>
+              <figure class="marquee__item">
+                <div class="marquee__art"><img src="thumbs/05-merchandise/merch-okay-buddy-02.webp" alt="Okay Buddy" width="600" height="434" loading="lazy" decoding="async"></div>
+                <figcaption class="caption"><span>Okay Buddy &middot; Streetwear</span><span>03-5</span></figcaption>
+              </figure>
+              <figure class="marquee__item">
+                <div class="marquee__art"><img src="thumbs/05-merchandise/merch-okay-buddy-01.webp" alt="Okay Buddy wordmark" width="600" height="125" loading="lazy" decoding="async"></div>
+                <figcaption class="caption"><span>Wordmark, knockout</span><span>03-6</span></figcaption>
+              </figure>
+            </div>
+            <div class="marquee__set" aria-hidden="true">
+              <figure class="marquee__item">
+                <div class="marquee__art"><img src="thumbs/05-merchandise/merch-all-fish-all-waters-01.webp" alt="" width="600" height="422" loading="lazy" decoding="async"></div>
+                <figcaption class="caption"><span>Fly Fishers International</span><span>03-1</span></figcaption>
+              </figure>
+              <figure class="marquee__item">
+                <div class="marquee__art"><img src="thumbs/05-merchandise/merch-bates-class-of-2025-01.webp" alt="" width="600" height="757" loading="lazy" decoding="async"></div>
+                <figcaption class="caption"><span>Bates '25 &middot; Qty 600</span><span>03-2</span></figcaption>
+              </figure>
+              <figure class="marquee__item">
+                <div class="marquee__art"><img src="thumbs/05-merchandise/merch-maine-harvest-02.webp" alt="" width="600" height="492" loading="lazy" decoding="async"></div>
+                <figcaption class="caption"><span>Maine Harvest &middot; Qty 400</span><span>03-3</span></figcaption>
+              </figure>
+              <figure class="marquee__item">
+                <div class="marquee__art"><img src="thumbs/05-merchandise/merch-juiced-01.webp" alt="" width="600" height="734" loading="lazy" decoding="async"></div>
+                <figcaption class="caption"><span>Juiced</span><span>03-4</span></figcaption>
+              </figure>
+              <figure class="marquee__item">
+                <div class="marquee__art"><img src="thumbs/05-merchandise/merch-okay-buddy-02.webp" alt="" width="600" height="434" loading="lazy" decoding="async"></div>
+                <figcaption class="caption"><span>Okay Buddy &middot; Streetwear</span><span>03-5</span></figcaption>
+              </figure>
+              <figure class="marquee__item">
+                <div class="marquee__art"><img src="thumbs/05-merchandise/merch-okay-buddy-01.webp" alt="" width="600" height="125" loading="lazy" decoding="async"></div>
+                <figcaption class="caption"><span>Wordmark, knockout</span><span>03-6</span></figcaption>
+              </figure>
+            </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ===================== 05 FEED ===================== -->
-  <section class="section" aria-labelledby="s5">
+  </div><!-- /.interlock -->
+
+  <!-- ===================== 04 SOCIAL ===================== -->
+  <section class="section" aria-labelledby="s4">
     <div class="rail" aria-hidden="true">
-      <div class="rail__no">05</div>
+      <div class="rail__no">04</div>
       <div class="rail__of">/ 06</div>
       <div class="rail__dash"></div>
-      <div class="rail__label">Feed</div>
+      <div class="rail__label">Social</div>
     </div>
-    <div class="plate" aria-hidden="true">Bates Men's Lacrosse · 2024 season · Plate 05-A · RGB</div>
+    <div class="plate" aria-hidden="true">Bates Men's Lacrosse · 2024 season · Plate 04-A · RGB</div>
     <div class="swatches" aria-hidden="true">
       <i style="background:#861626"></i>
       <i style="background:#46413c"></i>
@@ -268,40 +262,117 @@
 
     <div class="section__body">
       <div class="block block--1000"><span class="crop" aria-hidden="true"></span>
-        <div class="feed__head">
-          <div>
-            <h2 class="h2" id="s5">Feed</h2>
-            <p class="lede" style="max-width:430px">Gameday matchups, player features, and season schedules built for the feed.</p>
+        <h2 class="h2 h2--long" id="s4">Social Media Graphics</h2>
+        <p class="lede" style="max-width:430px">Gameday matchups, player features, and season schedules built for the feed.</p>
+
+        <!-- Same seamless-marquee construction as 04, travelling the
+             other way: the track starts at -50% and ends at 0. -->
+        <div class="marquee marquee--right" style="margin-top:60px">
+          <div class="marquee__track">
+            <div class="marquee__set">
+              <figure class="marquee__item">
+                <div class="marquee__art"><img src="thumbs/03-sports-graphics/sports-gameday-feature-01.webp" alt="Gameday feature graphic" width="600" height="600" loading="lazy" decoding="async"></div>
+                <figcaption class="caption"><span>Gameday</span><span>04-1</span></figcaption>
+              </figure>
+              <figure class="marquee__item">
+                <div class="marquee__art"><img src="thumbs/03-sports-graphics/sports-gameday-matchup-01.webp" alt="Gameday matchup graphic" width="600" height="750" loading="lazy" decoding="async"></div>
+                <figcaption class="caption"><span>Up next</span><span>04-2</span></figcaption>
+              </figure>
+              <figure class="marquee__item">
+                <div class="marquee__art"><img src="thumbs/03-sports-graphics/sports-player-stat-card-01.webp" alt="Player stat card" width="600" height="750" loading="lazy" decoding="async"></div>
+                <figcaption class="caption"><span>Stat card</span><span>04-3</span></figcaption>
+              </figure>
+              <figure class="marquee__item">
+                <div class="marquee__art"><img src="thumbs/03-sports-graphics/sports-player-feature-01.webp" alt="Player feature graphic" width="600" height="690" loading="lazy" decoding="async"></div>
+                <figcaption class="caption"><span>Player feature</span><span>04-4</span></figcaption>
+              </figure>
+              <figure class="marquee__item">
+                <div class="marquee__art"><img src="thumbs/03-sports-graphics/sports-season-schedule-01.webp" alt="Season schedule" width="600" height="750" loading="lazy" decoding="async"></div>
+                <figcaption class="caption"><span>Season schedule</span><span>04-5</span></figcaption>
+              </figure>
+            </div>
+            <div class="marquee__set" aria-hidden="true">
+              <figure class="marquee__item">
+                <div class="marquee__art"><img src="thumbs/03-sports-graphics/sports-gameday-feature-01.webp" alt="" width="600" height="600" loading="lazy" decoding="async"></div>
+                <figcaption class="caption"><span>Gameday</span><span>04-1</span></figcaption>
+              </figure>
+              <figure class="marquee__item">
+                <div class="marquee__art"><img src="thumbs/03-sports-graphics/sports-gameday-matchup-01.webp" alt="" width="600" height="750" loading="lazy" decoding="async"></div>
+                <figcaption class="caption"><span>Up next</span><span>04-2</span></figcaption>
+              </figure>
+              <figure class="marquee__item">
+                <div class="marquee__art"><img src="thumbs/03-sports-graphics/sports-player-stat-card-01.webp" alt="" width="600" height="750" loading="lazy" decoding="async"></div>
+                <figcaption class="caption"><span>Stat card</span><span>04-3</span></figcaption>
+              </figure>
+              <figure class="marquee__item">
+                <div class="marquee__art"><img src="thumbs/03-sports-graphics/sports-player-feature-01.webp" alt="" width="600" height="690" loading="lazy" decoding="async"></div>
+                <figcaption class="caption"><span>Player feature</span><span>04-4</span></figcaption>
+              </figure>
+              <figure class="marquee__item">
+                <div class="marquee__art"><img src="thumbs/03-sports-graphics/sports-season-schedule-01.webp" alt="" width="600" height="750" loading="lazy" decoding="async"></div>
+                <figcaption class="caption"><span>Season schedule</span><span>04-5</span></figcaption>
+              </figure>
+            </div>
+            </div>
           </div>
-          <div class="feed__ratio">
-            <b>1:5</b>
-            <span>One system · five gameday formats</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== 05 CAMPAIGNS ===================== -->
+  <section class="section" aria-labelledby="s5">
+    <div class="rail" aria-hidden="true">
+      <div class="rail__no">05</div>
+      <div class="rail__of">/ 06</div>
+      <div class="rail__dash"></div>
+      <div class="rail__label">Campaigns</div>
+    </div>
+    <div class="plate" aria-hidden="true">HEADstrong · BHA × onX · 2024 · Plate 05-A · 4/C uncoated</div>
+    <div class="swatches" aria-hidden="true">
+      <i style="background:#dec79f"></i>
+      <i style="background:#88b847"></i>
+      <i style="background:#1b649d"></i>
+      <i style="background:#8f2537"></i>
+      <i style="background:#211e1a"></i>
+    </div>
+
+    <div class="section__body">
+      <div class="block block--800"><span class="crop" aria-hidden="true"></span>
+        <h2 class="h2 h2--long" id="s5">Fundraising and Partnership Campaigns</h2>
+        <p class="lede" style="max-width:430px">Poster series and campaign graphics for causes, events, and fundraisers.</p>
+
+        <!-- One case study per row, each running the full measure: the
+             client note holds the left column, the work takes the rest. -->
+        <div class="case" style="margin-top:46px">
+          <div class="case__text">
+            <div class="client">HEADstrong Foundation</div>
+            <p class="client__note">Poster series for <strong>Lax Stache Madness</strong>, an annual lacrosse fundraiser for families living with cancer. The campaign <strong>raised $70,000</strong>.</p>
+          </div>
+          <div class="case__art">
+            <div class="grid grid--2-tight">
+              <div>
+                <img src="thumbs/01-print-editorial/print-lax-stache-madness-01.webp" alt="Lax Stache Madness poster" width="600" height="854" loading="lazy" decoding="async">
+                <div class="caption caption--sm"><span>Mustache</span><span>05-1</span></div>
+              </div>
+              <div>
+                <img src="thumbs/01-print-editorial/print-lax-stache-madness-03.webp" alt="Lax Stache Madness donation board, Bates Men's Lacrosse and the HEADstrong Foundation" width="600" height="660" loading="lazy" decoding="async">
+                <div class="caption caption--sm"><span>Donate</span><span>05-2</span></div>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div class="grid grid--3" style="margin-top:60px">
-          <div>
-            <img src="thumbs/03-sports-graphics/sports-gameday-feature-01.webp" alt="Gameday feature graphic" loading="lazy" decoding="async">
-            <div class="caption"><span>Gameday</span><span>05-1</span></div>
+        <div class="case">
+          <div class="case__text">
+            <div class="client">Backcountry Hunters &amp; Anglers</div>
+            <p class="client__note">Print and social graphics for <strong>Public Lands Pint Night</strong>, BHA's conservation fundraiser in <strong>collaboration with onX</strong>.</p>
           </div>
-          <div>
-            <img src="thumbs/03-sports-graphics/sports-gameday-matchup-01.webp" alt="Gameday matchup graphic" loading="lazy" decoding="async">
-            <div class="caption"><span>Up next</span><span>05-2</span></div>
-          </div>
-          <div>
-            <img src="thumbs/03-sports-graphics/sports-player-stat-card-01.webp" alt="Player stat card" loading="lazy" decoding="async">
-            <div class="caption"><span>Stat card</span><span>05-3</span></div>
-          </div>
-        </div>
-
-        <div class="grid grid--feed2" style="margin-top:44px">
-          <div>
-            <img src="thumbs/03-sports-graphics/sports-player-feature-01.webp" alt="Player feature graphic" loading="lazy" decoding="async">
-            <div class="caption"><span>Player feature</span><span>05-4</span></div>
-          </div>
-          <div>
-            <img src="thumbs/03-sports-graphics/sports-season-schedule-01.webp" alt="Season schedule" loading="lazy" decoding="async">
-            <div class="caption"><span>Season schedule</span><span>05-5</span></div>
+          <div class="case__art">
+            <div>
+              <img src="thumbs/01-print-editorial/print-public-lands-pint-night-04.webp" alt="Public Lands Pint Night, story cut" width="600" height="338" loading="lazy" decoding="async">
+              <div class="caption caption--sm"><span>Pint Night &middot; onX</span><span>05-3</span></div>
+            </div>
           </div>
         </div>
       </div>
