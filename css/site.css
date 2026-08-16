@@ -289,15 +289,22 @@ main.page > .section::before {
 
 /* --- 01 hero ------------------------------------------------------------- */
 
-.hero { display: flex; align-items: flex-start; gap: 64px; padding: 0 128px 0 152px; }
-.hero__intro { flex: 0 1 auto; min-width: 0; }
+/* No left padding. The hero is already inset twice over — once by the
+   interlock's page padding, once by starting on grid column 2 — and a third
+   inset here pushed the name a third of the way across the block and left
+   the whole left side of it empty. The name now sets flush to the block's
+   own left edge, and the intro grows into the measure instead of sitting at
+   its content width, so the copy fills the space rather than hugging the
+   toolset. */
+.hero { display: flex; align-items: flex-start; gap: 72px; padding: 0 40px 0 0; }
+.hero__intro { flex: 1 1 auto; min-width: 0; }
 .hero h1 {
-  font-family: var(--serif); font-weight: 400; font-size: 76px;
+  font-family: var(--serif); font-weight: 400; font-size: 84px;
   line-height: 0.94; letter-spacing: -0.02em; margin: 0;
 }
 .hero__lede {
   font-size: 21px; line-height: 1.5; letter-spacing: -0.005em;
-  margin: 26px 0 0; max-width: 520px; color: var(--ink-soft); text-wrap: pretty;
+  margin: 26px 0 0; max-width: 620px; color: var(--ink-soft); text-wrap: pretty;
 }
 .hero__lede strong { font-weight: 500; color: var(--ink); }
 
@@ -541,8 +548,8 @@ main.page > .section::before {
   .section--hero { --pad-top: 132px; padding-bottom: 96px; }
   .section__body { padding-right: var(--gutter); }
 
-  .hero { padding: 0 var(--gutter); gap: 48px; }
-  .hero h1 { font-size: clamp(46px, 6vw, 76px); }
+  .hero { padding: 0 24px 0 0; gap: 48px; }
+  .hero h1 { font-size: clamp(46px, 6.4vw, 84px); }
   .toolset { flex: 0 0 340px; }
 
   /* Narrower note column so the art keeps its share of a smaller measure. */
@@ -583,6 +590,11 @@ main.page > .section::before {
   }
   .blk--hero.section--hero { padding: 132px 0 96px; }
   .h2--long { font-size: clamp(30px, 6.5vw, 40px); max-width: 100%; }
+
+  /* The block runs the full width once stacked, so the hero needs its own
+     side padding back — flush left is the block's edge up here, not a
+     margin. */
+  .hero { padding: 0 var(--gutter); }
 
   /* Nothing is beside anything any more, so the stepped rules go and every
      block takes the same top rule the stacked bands use. */
