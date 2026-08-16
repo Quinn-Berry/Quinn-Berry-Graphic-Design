@@ -94,14 +94,22 @@ a:hover { color: var(--accent); }
 
 /* --- section scaffolding ------------------------------------------------- */
 
-.section { position: relative; padding: 130px 0 150px; }
+/* --pad-top drives both the section's top padding and the absolute offset of
+   the rail and swatch strip beside it. They have to be the same number — a
+   section that changes its padding without moving its rail leaves the number
+   floating below its own heading — so it is declared once. */
+.section { --pad-top: 130px; position: relative; padding: var(--pad-top) 0 150px; }
+/* Section 05 carries two stacked case rows; the standard band padding left
+   it looking loose top and bottom against that much content, and the height
+   it gives back is what pays for the larger art. */
+.section--tight { --pad-top: 72px; padding-bottom: 80px; }
 .section--hero {
+  --pad-top: 150px;
   display: flex; flex-direction: column; justify-content: center;
-  padding: 150px 0 120px;
+  padding: var(--pad-top) 0 120px;
 }
 
-.rail { position: absolute; left: var(--edge); top: 130px; width: 96px; }
-.section--hero .rail { top: 150px; }
+.rail { position: absolute; left: var(--edge); top: var(--pad-top); width: 96px; }
 .rail__no    { font-family: var(--serif); font-size: 60px; line-height: 0.82; letter-spacing: -0.01em; }
 .rail__of    { font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.2em; color: var(--muted); margin-top: 12px; }
 .rail__dash  { width: 34px; height: 1px; background: #cdc8bd; margin: 18px 0; }
@@ -115,8 +123,7 @@ a:hover { color: var(--accent); }
 }
 .plate--faint { color: #c2beb5; }
 
-.swatches { position: absolute; right: var(--edge); top: 130px; display: flex; flex-direction: column; }
-.section--hero .swatches { top: 150px; }
+.swatches { position: absolute; right: var(--edge); top: var(--pad-top); display: flex; flex-direction: column; }
 .swatches i { display: block; width: 26px; height: 56px; }
 .swatches i.is-pale { border: 1px solid #e0dbd1; }
 .swatches__label {
@@ -261,7 +268,7 @@ main.page > .section::before {
   font-family: var(--serif); font-weight: 400; font-size: 46px;
   line-height: 1; letter-spacing: -0.018em; margin: 0;
 }
-.h2--long { font-size: 40px; line-height: 1.08; max-width: 460px; text-wrap: balance; }
+.h2--long { font-size: 40px; line-height: 1.08; max-width: 720px; text-wrap: balance; }
 .lede {
   font-size: 15.5px; line-height: 1.62; margin: 16px 0 0;
   color: var(--body); max-width: 440px; text-wrap: pretty;
@@ -276,7 +283,6 @@ main.page > .section::before {
 
 .grid { display: grid; align-items: end; }
 .grid--2      { grid-template-columns: 1fr 1fr; gap: 48px; }
-.grid--2-tight{ grid-template-columns: 1fr 1fr; gap: 18px; }
 .grid--2-wide { grid-template-columns: 1fr 1fr; gap: 56px; align-items: start; }
 .grid--3      { grid-template-columns: 1fr 1fr 1fr; gap: 26px; align-items: start; }
 .grid--feed2  { grid-template-columns: 1.15fr 1fr; gap: 26px; align-items: start; }
@@ -384,19 +390,38 @@ main.page > .section::before {
 
 /* Each case study is its own row across the full measure — note on the
    left, the work filling the rest — so the two clients read in sequence
-   rather than competing for half a column each. */
-/* The art is capped rather than left to fill the measure — at full width
-   the posters ran ~460px tall each and the section swallowed a screen and a
-   half. The cap is 347px (520 / 1.5); the spacing around the cases came
-   down by the same factor so the section shrinks with the pictures rather
-   than leaving holes where they used to be. Type size is untouched. */
-.case { display: grid; grid-template-columns: 300px 1fr; gap: 48px; align-items: start; }
+   rather than competing for half a column each.
+
+   The art is sized by HEIGHT, not width. Capping the width was what kept
+   the section short, but it also meant the pictures could never use the
+   empty measure on the right: a wider cap on a 1:1.4 poster buys width and
+   height together. Fixing the height instead lets each piece run out
+   sideways into that space while the row stays the height it is told to
+   be — which is the only way to get bigger art and a shorter section at
+   the same time. Everything else here is overhead trimmed to pay for it. */
+.case {
+  /* Fluid, because the pair's row width is ~1.6x this height: pinned at
+     300px the two posters outgrow the art column below ~1200px and flex
+     shrinks them, which squashes width against a fixed height and distorts
+     the artwork. Scaling the cap with the viewport keeps the row inside the
+     column, so nothing ever has to shrink. */
+  --case-art: clamp(180px, 22vw, 300px);
+  display: grid; grid-template-columns: 400px 1fr; gap: 56px; align-items: start;
+}
 .case + .case {
-  margin-top: 32px; padding-top: 30px; border-top: 1px solid var(--rule-soft);
+  margin-top: 20px; padding-top: 18px; border-top: 1px solid var(--rule-soft);
 }
 .case__text { padding-top: 2px; }
-.case__art { min-width: 0; max-width: 347px; }
-.case__art img { width: 100%; }   /* the work fills its column, not its intrinsic width */
+.case__art { min-width: 0; }
+/* max-height, not height. An explicit height pins the vertical while the
+   width is still free to be reduced — by max-width, or by flex shrink in
+   the pair — and the picture comes out narrowed. Capping instead leaves
+   height:auto in charge, so both dimensions move together. */
+.case__art img { width: auto; max-width: 100%; max-height: var(--case-art); }
+
+/* The paired posters sit on a shared baseline and take only the width their
+   height gives them, rather than splitting a column in half. */
+.case__pair { display: flex; align-items: flex-end; gap: 20px; }
 
 .client {
   font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.2em;
@@ -512,17 +537,20 @@ main.page > .section::before {
   .block::before, .block::after,
   .block > .crop::before, .block > .crop::after { display: none; }
 
-  .section { padding: 96px 0 110px; }
-  .section--hero { padding: 132px 0 96px; }
+  .section { --pad-top: 96px; padding-bottom: 110px; }
+  .section--hero { --pad-top: 132px; padding-bottom: 96px; }
   .section__body { padding-right: var(--gutter); }
 
   .hero { padding: 0 var(--gutter); gap: 48px; }
   .hero h1 { font-size: clamp(46px, 6vw, 76px); }
   .toolset { flex: 0 0 340px; }
 
+  /* Narrower note column so the art keeps its share of a smaller measure. */
+  .case { grid-template-columns: 300px 1fr; gap: 44px; }
+
   /* Rails are gone at this width, so the blocks give their measure back to
-     the content. The grid placement and the overlaps still hold. */
-  /* The left gutter has to stay wider than one grid column, because one
+     the content; the grid placement and the overlaps still hold. The left
+     gutter has to stay wider than one grid column, though, because one
      column is exactly how far 01 overlaps 02 — anything narrower and 01's
      opaque panel clips the first characters of 02's copy. */
   .blk { --gutter: clamp(88px, 9vw, 132px); --edge: clamp(20px, 2.5vw, 36px); padding: 48px 0 56px; }
@@ -577,7 +605,6 @@ main.page > .section::before {
     grid-template-columns: 1fr;
     gap: 44px;
   }
-  .grid--2-tight { gap: 18px; }          /* poster pairs stay side by side */
 
   .case { grid-template-columns: 1fr; gap: 32px; }
 
