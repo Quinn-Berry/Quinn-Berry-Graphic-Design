@@ -53,7 +53,10 @@
   var countEl = document.getElementById("marks-count");
   if (!track || !nameEl || !countEl) return;
 
-  var K = 218;   // optical size constant — 150% of the original 145
+  // Optical size constant. Raised with the taller art frame so the marks
+  // actually fill it: at 240 the tallest mark (Twigtree, ~1:2) comes out
+  // 317px against 324px of frame, so max-height never has to clamp it.
+  var K = 240;
   function cell(m, index, total, isClone) {
     var wrap = document.createElement("div");
     wrap.className = "marks__cell";

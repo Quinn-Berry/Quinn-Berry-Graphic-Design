@@ -51,14 +51,27 @@
 
   <!-- ===================== HEADER + HERO ===================== -->
   <section class="section section--hero blk blk--hero" aria-labelledby="s1">
+    <!-- Three columns under one continuous rule: the name row and the two
+         column labels sit on row 1, the rule spans row 2, the bodies sit on
+         row 3. The rule is its own grid item rather than a border on each
+         head, so it stays unbroken across the column gaps. -->
     <div class="hero">
-      <div class="hero__intro">
+      <div class="hero__name">
         <h1 id="s1">Quinn Berry</h1>
-        <p class="hero__lede">Building brand image through design. Graphic designer in Cambridge, Massachusetts — brand, web, and content strategy underneath it. <strong>Open to full-time and freelance work.</strong></p>
+        <div class="hero__portrait">
+          <img src="assets/portrait/headshot-alt.png"
+               srcset="assets/portrait/headshot-alt.png 1x, assets/portrait/headshot-alt@2x.png 2x"
+               alt="Quinn Berry" width="320" height="320" decoding="async">
+        </div>
       </div>
+      <div class="hero__k hero__k--tools">Toolset</div>
+      <div class="hero__k hero__k--edu">Education</div>
+
+      <i class="hero__rule" aria-hidden="true"></i>
+
+      <p class="hero__lede">Building brand image through design. I'm a recent Bates College graduate with experience in digital marketing, content strategy, graphic design, and fundraising campaigns — a graphic designer and brand strategist based in Cambridge, Massachusetts, with brand, web, and content strategy underneath it. From a <strong>$70,000+</strong> national fundraising campaign to growing a client's following past <strong>100,000</strong>, I design identity systems and build the sites that carry them, end to end. <strong>Open to full-time and freelance work.</strong></p>
 
       <aside class="toolset" aria-label="Software experience">
-        <div class="toolset__label">Toolset</div>
         <p><strong>7+ years experience in Adobe Creative Suite</strong> — Premiere Pro, After Effects, Photoshop, Illustrator, Media Encoder, Lightroom. I shoot, edit, design, and ship the content that makes it work.<br><strong>Brief — Concept — Design — Refine — Deliver.</strong></p>
         <div class="toolset__row">
           <img src="assets/adobe/premiere_pro.jpeg" alt="Adobe Premiere Pro" width="46" height="46" loading="lazy" decoding="async">
@@ -75,16 +88,27 @@
           <img src="assets/tools/figma.png" alt="Figma" width="46" height="46" loading="lazy" decoding="async">
         </div>
       </aside>
+
+      <aside class="edu" aria-label="Education">
+        <div class="edu__head">
+          <img class="edu__mark" src="assets/bates-logo.png"
+               srcset="assets/bates-logo.png 1x, assets/bates-logo@2x.png 2x"
+               alt="Bates College" width="176" height="176" loading="lazy" decoding="async">
+          <p><strong>Bates College &middot; Class of 2025</strong><br>B.A., Computer Science &amp; Graphic Design.</p>
+        </div>
+        <p class="is-second">100-page senior thesis, <em>&ldquo;Framing Bias: How Generative AI Learns and Reproduces Patterns in Visual Media.&rdquo;</em></p>
+        <p class="is-second">Four-year varsity lacrosse athlete (NESCAC).</p>
+      </aside>
     </div>
   </section>
 
-  <!-- ===================== 01 MARK ===================== -->
-  <section class="section blk blk--mark" aria-label="Mark">
+  <!-- ===================== 01 ORIGINAL LOGOS ===================== -->
+  <section class="section blk blk--mark" aria-labelledby="s1b">
     <div class="rail" aria-hidden="true">
       <div class="rail__no">01</div>
       <div class="rail__of">/ 06</div>
       <div class="rail__dash"></div>
-      <div class="rail__label">Mark</div>
+      <div class="rail__label">Logos</div>
     </div>
     <div class="plate" aria-hidden="true">Twigtree · Woodberry · Run the Race · Max Mancuso · Plate 01-A</div>
     <div class="swatches" aria-hidden="true">
@@ -96,16 +120,21 @@
       <span class="swatches__label">5-swatch</span>
     </div>
 
-    <div class="hero__cue"><span>Let's start with a logo.</span></div>
+    <div class="section__body">
+      <div class="block block--900"><span class="crop" aria-hidden="true"></span>
+        <h2 class="h2" id="s1b">Original Logos</h2>
+        <p class="lede">Identity marks drawn from scratch for brands, influencers, podcasts, and more.</p>
 
-    <div class="marks">
-      <div class="marks__frame">
-        <div class="marks__window">
-          <div class="marks__track" id="marks-track"></div>
-        </div>
-        <div class="marks__meta">
-          <span id="marks-name">Twigtree</span>
-          <span id="marks-count">01 / 04</span>
+        <div class="marks">
+          <div class="marks__frame">
+            <div class="marks__window">
+              <div class="marks__track" id="marks-track"></div>
+            </div>
+            <div class="marks__meta">
+              <span id="marks-name">Twigtree</span>
+              <span id="marks-count">01 / 04</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -203,7 +232,7 @@
                 <div class="marquee__art"><img src="thumbs/05-merchandise/merch-okay-buddy-02.webp" alt="Okay Buddy" width="600" height="434" loading="lazy" decoding="async"></div>
                 <figcaption class="caption"><span>Okay Buddy &middot; Streetwear</span><span>03-5</span></figcaption>
               </figure>
-              <figure class="marquee__item">
+              <figure class="marquee__item marquee__item--mid">
                 <div class="marquee__art"><img src="thumbs/05-merchandise/merch-okay-buddy-01.webp" alt="Okay Buddy wordmark" width="600" height="125" loading="lazy" decoding="async"></div>
                 <figcaption class="caption"><span>Wordmark, knockout</span><span>03-6</span></figcaption>
               </figure>
@@ -229,7 +258,7 @@
                 <div class="marquee__art"><img src="thumbs/05-merchandise/merch-okay-buddy-02.webp" alt="" width="600" height="434" loading="lazy" decoding="async"></div>
                 <figcaption class="caption"><span>Okay Buddy &middot; Streetwear</span><span>03-5</span></figcaption>
               </figure>
-              <figure class="marquee__item">
+              <figure class="marquee__item marquee__item--mid">
                 <div class="marquee__art"><img src="thumbs/05-merchandise/merch-okay-buddy-01.webp" alt="" width="600" height="125" loading="lazy" decoding="async"></div>
                 <figcaption class="caption"><span>Wordmark, knockout</span><span>03-6</span></figcaption>
               </figure>
