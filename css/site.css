@@ -150,8 +150,8 @@ a:hover { color: var(--accent); }
   grid-template-columns: repeat(12, 1fr);
   grid-template-rows:
     auto      /* 1  hero body                              */
-    76px      /* 2  hero bottom  ∩  01 top                 */
-    96px      /* 3  01 body                                */
+    76px      /* 2  hero bottom  ∩  01 and 02 top          */
+    96px      /* 3  01 and 02 body                         */
     auto      /* 4  01 and 02 both grow here               */
     56px      /* 5  01 bottom    ∩  02 body                */
     88px      /* 6  02 bottom    ∩  03 top                 */
@@ -191,7 +191,9 @@ a:hover { color: var(--accent); }
 
 .blk--hero   { grid-column: 2 / 13; grid-row: 1 / 3; z-index: 1; }
 .blk--mark   { grid-column: 1 / 8;  grid-row: 2 / 6; z-index: 3; }
-.blk--type   { grid-column: 7 / 13; grid-row: 4 / 7; z-index: 2; }
+/* Same start row as 01, so the two open on one line rather than stepping.
+   Same end row as before, so 02's lap over 03 underneath is unchanged. */
+.blk--type   { grid-column: 7 / 13; grid-row: 2 / 7; z-index: 2; }
 .blk--wide   { grid-column: 1 / 12; grid-row: 6 / 8; z-index: 4; }
 
 /* Bottom padding on each block has to clear the overlap band beneath it,
@@ -373,10 +375,10 @@ main.page > .section::before {
    their bottoms instead, so they start at three different heights. One
    shared padding-top then puts every column's first line on the same
    baseline under the rule. */
-.hero__lede  { grid-column: 1; grid-row: 3; }
+.hero__bio   { grid-column: 1; grid-row: 3; }
 .toolset     { grid-column: 2; grid-row: 3; }
 .edu         { grid-column: 3; grid-row: 3; }
-.hero__lede, .toolset, .edu { align-self: start; padding-top: 26px; margin-top: 0; }
+.hero__bio, .toolset, .edu { align-self: start; padding-top: 26px; margin-top: 0; }
 .toolset > :first-child, .edu > :first-child { margin-top: 0; }
 
 /* Column heads. These used to be .toolset__label with its own bottom border;
@@ -395,6 +397,19 @@ main.page > .section::before {
   margin: 0; max-width: var(--measure); color: var(--ink-soft); text-wrap: pretty;
 }
 .hero__lede strong { font-weight: 500; color: var(--ink); }
+
+/* The opening line set as display type rather than as the paragraph's first
+   sentence. One --bio-fs drives both, so the 1.6x relationship survives the
+   breakpoint where the body size drops. */
+.hero__bio { --bio-fs: 21px; }
+.hero__lede { font-size: var(--bio-fs); }
+.hero__tagline {
+  font-family: var(--serif); font-weight: 400;
+  font-size: calc(var(--bio-fs) * 1.6);
+  line-height: 1.14; letter-spacing: -0.015em;
+  color: var(--ink); margin: 0 0 34px;
+  max-width: var(--measure); text-wrap: pretty;
+}
 
 /* Name and portrait share a line; the lede runs full width underneath both.
    Everything here is expressed as a multiple of --name rather than in fixed
@@ -462,6 +477,25 @@ main.page > .section::before {
 .edu p.is-second { margin-top: 14px; }
 .edu strong { font-weight: 600; color: var(--ink); }
 .edu em { font-style: italic; }
+
+/* Awards. Its own mono label to match the column heads above, and a step down
+   in size so the list reads as a footnote to the degree rather than competing
+   with it. */
+.edu__k {
+  font-family: var(--mono); font-size: 8.5px; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--muted-2); font-weight: 500;
+  margin: 26px 0 12px; padding-bottom: 8px;
+  border-bottom: 1px solid var(--rule-soft);
+}
+.edu__awards {
+  margin: 0; padding: 0; list-style: none;
+  font-size: 12px; line-height: 1.5; color: var(--body);
+}
+.edu__awards li { margin-top: 10px; padding-left: 13px; position: relative; text-wrap: pretty; }
+.edu__awards li::before {
+  content: ""; position: absolute; left: 0; top: 0.62em;
+  width: 6px; height: 1px; background: var(--muted-2);
+}
 
 /* logo carousel */
 /* The carousel runs at 150% of its original size. Block 01 shares a grid
@@ -734,19 +768,19 @@ main.page > .section::before {
     grid-template-rows: auto;
     row-gap: 0;
   }
-  .hero__name, .hero__lede, .toolset, .edu,
+  .hero__name, .hero__bio, .toolset, .edu,
   .hero__k--tools, .hero__k--edu { grid-column: 1; grid-row: auto; }
   /* Source order puts both heads straight after the name so they can share
      row 1 of the desktop grid. Stacked, that strands them above the lede and
      away from the bodies they label, so the reading order is restored here. */
   .hero__name    { order: 1; }
-  .hero__lede    { order: 2; }
+  .hero__bio     { order: 2; }
   .hero__k--tools{ order: 3; }
   .toolset       { order: 4; }
   .hero__k--edu  { order: 5; }
   .edu           { order: 6; }
   .hero__rule { display: none; }
-  .hero__lede { margin-bottom: 46px; }
+  .hero__bio { margin-bottom: 46px; }
   .hero__k { border-bottom: 1px solid var(--rule); margin-top: 34px; }
   .toolset, .edu { padding-top: 0; max-width: 520px; }
 
@@ -806,7 +840,7 @@ main.page > .section::before {
   .nav__inner { padding: 18px var(--edge); }
   .nav__kicker { display: none; }
 
-  .hero__lede { font-size: 18px; }
+  .hero__bio { --bio-fs: 18px; }
   .marks__art { height: 300px; padding: 14px 18px; }
   .marks__cap { min-height: 120px; padding: 0 8px; }
   .marks__cap p { font-size: 16px; margin-top: 16px; }

@@ -17,3 +17,8 @@ _inbox/*
 # Local tooling state, not part of the site
 .claude/
 .remember/
+
+# Design-tool source files. Same reasoning as the export bundles above: the
+# editable project lives locally, the site ships the rendered PNG.
+*.aep
+*.ai
